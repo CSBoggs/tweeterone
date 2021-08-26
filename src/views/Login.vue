@@ -3,10 +3,9 @@
       <TweeterNav/>
       <span v-if="isLoggedIn">
         <a @click="userLogout">Logout</a>
-        <router-link to="/main"/>
+        <router-link to="/login"/>
       </span>
       <span v-else>
-        <router-link to="/">Login</router-link>
         <router-link to="/register">Register</router-link>
       </span>
       <form action="">
@@ -15,16 +14,17 @@
           name="username"
           type="text"
           v-model="userInfo.username"
-          placeholder="eve.holt@reqres.in"
           />
         <label for="password">Password</label>
         <input
           name="password"
           type="password"
           v-model="userInfo.password"
-          placeholder="cityslicka"
           />
-      <button @click.prevent="submitLogin()">Submit</button>
+      <v-btn @click.prevent="submitLogin()"
+        depressed
+        elevation="2"
+        raised>Submit</v-btn>
     </form>
     </div>
 </template>
@@ -45,11 +45,14 @@ import TweeterNav from '../components/TweeterNav.vue';
       methods: {
         async userLogout() {
             await this.$store.dispatch('userLogout');
-            this.$router.push('/');
+            this.$router.push('/login');
         },
         submitLogin() {
           this.$store.dispatch('userLogin', this.userInfo);
         }
+      },
+      beforeCreate() {
+        this.$store.dispatch('authCheck');
       },
       data: () => {
         return {
