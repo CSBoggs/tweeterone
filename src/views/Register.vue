@@ -1,28 +1,38 @@
 <template>
   <div class="register">
-    <form action="">
+    <TweeterNav/>
+    <v-form action="" ref="form">
       <fieldset>
         <legend>register an account with tweeter</legend>
         <label for="email">Email</label>
-        <input
+        <v-text-field
           name="email"
           type="text"
           v-model="userReg.email"
         />
+
         <label for="username">Username</label>
-        <input
+        <v-text-field
           name="username"
           type="text"
           v-model="userReg.username"
         />
+
         <label for="password">Password</label>
-        <input
+        <v-text-field
           name="password"
           type="password"
           v-model="userReg.password"
         />
+
+        <label for="biography">Biography</label>
+        <v-text-field
+          name="biography"
+          type="text"
+          v-model="userReg.bio"
+          />
+
         <label for="birthdate">Birthdate</label>
-        <div class="mb-6">Active picker: <code>{{ activePicker || 'null' }}</code></div>
         <v-menu
           ref="menu"
           v-model="menu"
@@ -33,7 +43,7 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
-              v-model="date"
+              v-model="userReg.birthdate"
               label="Birthday date"
               prepend-icon="mdi-calendar"
               readonly
@@ -42,21 +52,24 @@
             ></v-text-field>
           </template>
           <v-date-picker
-            v-model="date"
+            v-model="userReg.birthdate"
             :active-picker.sync="activePicker"
             :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
             min="1950-01-01"
             @change="save"
           ></v-date-picker>
         </v-menu>
-        <label for="biography"></label>
-        <input
-          name="biography"
-          type="text"
-          v-model="userReg.biography">
-        <button @click="userRegistration()"></button>
+
+        <v-btn @click="userRegistration()"
+          depressed
+          elevation="2"
+          raised>Register</v-btn>
+        <v-btn @click="getUsers()"
+          depressed
+          elevation="2"
+          raised>Check</v-btn>
       </fieldset>
-    </form>
+    </v-form>
   </div>
 </template>
 
@@ -70,9 +83,9 @@
           username: "",
           password: "",
           birthdate: "",
+          bio: "",
         },
         activePicker: null,
-        date: null,
         menu: false,
       }
     },
@@ -86,8 +99,11 @@
         this.$refs.menu.save(date)
       },
       userRegistration() {
-        this.$store.dispatch("registration", this.input)
-      }
+        this.$store.dispatch("userRegistration", this.userReg);
+      },
+      getUsers() {
+        this.$store.dispatch("getUsers");
+      },
     }
   }
 </script>

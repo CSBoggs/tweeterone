@@ -10,13 +10,13 @@
       </span>
       <form action="">
         <label for="username">Username</label>
-        <input
+        <v-text-field
           name="username"
           type="text"
           v-model="userInfo.username"
           />
         <label for="password">Password</label>
-        <input
+        <v-text-field
           name="password"
           type="password"
           v-model="userInfo.password"

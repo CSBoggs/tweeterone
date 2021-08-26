@@ -5,7 +5,7 @@ import cookies from "vue-cookies";
 import router from "../router";
 
 axios.defaults.headers.common['X-Api-Key'] = process.env.VUE_APP_API_KEY;
-axios.defaults.baseURL = "https://tweeterest.ml/api/users";
+axios.defaults.baseURL = "https://tweeterest.ml/api/";
 
 Vue.use(Vuex);
 
@@ -13,7 +13,7 @@ export default new Vuex.Store({
   state: {
     userAuth: false,
     userName: "",
-    userID: "",
+    userId: "",
     loginToken: "",
   },
   mutations: {
@@ -43,44 +43,50 @@ export default new Vuex.Store({
             commit("setUserID", response.data.userId);
             commit("setAuthStatus", response.data.loginToken);
             commit("setLoggedIn", true);
+            cookies.set("loginToken", response.data.loginToken);
             this.dispatch("redirect", "/");
           } else {
-            console.error("user registration error");
+            alert('username and/or password are invalid, please try again');
           }
         })
         .catch(() => {
-            console.error("user registration error");
+          alert('username and/or password are invalid, please try again');
         });
     },
-    registration({ commit }, payload) {
+    userRegistration({ commit }, payload) {
       axios
         .post("/users", payload)
         .then((response) => {
+          console.log(response);
           if (response.status === 201) {
             commit("setUserName", response.data.username);
             commit("setUserID", response.data.userId);
             commit("setAuthStatus", response.data.loginToken);
             commit("setLoggedIn", true);
+            cookies.set("loginToken", response.data.loginToken);
             this.dispatch("redirect", "/");
           } else {
-            console.error("user registration error");
+            alert('there was a registration error, please try again');
           }
+        })
+        .catch(() => {
+          alert('username and/or password are invalid, please try again');
+        });
+    },
+    getUsers() {
+      axios
+        .get("/users")
+        .then((response) => {
+            console.log(response);
         })
         .catch(() => {
             console.error("user registration error");
         });
     },
     userLogout() {
-      cookies.remove("setAuthStatus");
+      cookies.remove("loginToken");
       this.commit("setLoggedOut");
       this.dispatch("redirect", "/login");
-    },
-    userStatus() {
-      if (cookies.get("loginToken") == "QpwL5tke4Pnpja7X4") {
-        this.commit("setLoggedIn");
-      } else {
-        this.commit("setLoggedOut");
-      }
     },
     redirect(state, route) {
       if (router.currentRoute != route) {
