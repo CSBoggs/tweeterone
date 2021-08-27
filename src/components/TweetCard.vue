@@ -13,20 +13,8 @@
 				<span class="text-h6 font-weight-light">Tweeter</span>
 			</v-card-title>
 
-			<v-btn
-				v-if="userId == tweet.userId"
-				@click="deleteTweet"
-				class="mx-2"
-				fab
-				small
-				fixed
-				right
-			>
-				<v-icon dark> mdi-minus </v-icon>
-			</v-btn>
-
 			<v-card-text class="text-h5 font-weight-bold">
-				{{ tweet.content }}
+				"{{ tweet.content }}"
 			</v-card-text>
 
 			<v-card-actions>
@@ -49,6 +37,17 @@
 						<span class="subheading">45</span>
 					</v-row>
 				</v-list-item>
+
+				<v-btn
+					v-if="tweet.userId == userId"
+					@click="deleteTweet"
+					class="mx-4"
+					color="red"
+					fab
+					small
+				>
+					<v-icon dark> mdi-minus </v-icon>
+				</v-btn>
 			</v-card-actions>
 		</v-card>
 	</div>
@@ -59,13 +58,23 @@ export default {
 	name: "TweetCard",
 	computed: {
 		userId() {
-			return this.$store.getters.getUserID;
+			return this.$store.getters.getUserId;
 		},
 	},
 	props: {
 		tweet: {
 			username: "",
 			content: "",
+			userId: "",
+			tweetId: "",
+			loginToken: "",
+		},
+	},
+	methods: {
+		deleteTweet() {
+			this.$store.dispatch("removeTweet", this.tweet.tweetId);
+			let userId = this.$store.getters.getUserId;
+			this.$store.dispatch("getTweetsById", userId);
 		},
 	},
 };

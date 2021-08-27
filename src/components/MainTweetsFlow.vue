@@ -19,4 +19,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+div {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 1vh;
+}
+</style>

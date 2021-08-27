@@ -16,9 +16,6 @@
 					elevation="2"
 					>Post Tweet</v-btn
 				>
-				<v-btn @click="getTweets()" depressed elevation="2" raised
-					>Check</v-btn
-				>
 			</v-form>
 		</v-container>
 	</div>

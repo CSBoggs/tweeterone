@@ -48,6 +48,7 @@ export default new Vuex.Store({
 						commit("setAuthStatus", response.data.loginToken);
 						commit("setLoggedIn", true);
 						cookies.set("loginToken", response.data.loginToken);
+						cookies.set("userId", response.data.userId);
 						this.dispatch("redirect", "/");
 					} else {
 						alert(
@@ -72,6 +73,7 @@ export default new Vuex.Store({
 						commit("setAuthStatus", response.data.loginToken);
 						commit("setLoggedIn", true);
 						cookies.set("loginToken", response.data.loginToken);
+						cookies.set("userId", response.data.userId);
 						this.dispatch("redirect", "/");
 					} else {
 						alert(
@@ -145,6 +147,14 @@ export default new Vuex.Store({
 				})
 				.catch((response) => console.log(response));
 		},
+		removeTweet({ getters }, tweetId) {
+			axios.delete("/tweets", {
+				data: {
+					loginToken: getters.getLoginToken,
+					tweetId: tweetId,
+				},
+			});
+		},
 	},
 	getters: {
 		getAuthStatus(state) {
@@ -153,8 +163,8 @@ export default new Vuex.Store({
 		getLoginToken(state) {
 			return state.loginToken;
 		},
-		getUserId(state) {
-			return state.userId;
+		getUserId() {
+			return cookies.get("userId");
 		},
 		getTweetsArray(state) {
 			return state.tweets;

@@ -5,10 +5,18 @@
 			<fieldset>
 				<legend>register an account with tweeter</legend>
 				<label for="email">Email</label>
-				<v-text-field name="email" type="text" v-model="userReg.email" />
+				<v-text-field
+					name="email"
+					type="text"
+					v-model="userReg.email"
+				/>
 
 				<label for="username">Username</label>
-				<v-text-field name="username" type="text" v-model="userReg.username" />
+				<v-text-field
+					name="username"
+					type="text"
+					v-model="userReg.username"
+				/>
 
 				<label for="password">Password</label>
 				<v-text-field
@@ -18,7 +26,11 @@
 				/>
 
 				<label for="biography">Biography</label>
-				<v-text-field name="biography" type="text" v-model="userReg.bio" />
+				<v-text-field
+					name="biography"
+					type="text"
+					v-model="userReg.bio"
+				/>
 
 				<label for="birthdate">Birthdate</label>
 				<v-menu
@@ -43,7 +55,10 @@
 						v-model="userReg.birthdate"
 						:active-picker.sync="activePicker"
 						:max="
-							new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+							new Date(
+								Date.now() -
+									new Date().getTimezoneOffset() * 60000
+							)
 								.toISOString()
 								.substr(0, 10)
 						"
@@ -52,10 +67,13 @@
 					></v-date-picker>
 				</v-menu>
 
-				<v-btn @click="userRegistration()" depressed elevation="2" raised
+				<v-btn
+					@click="userRegistration()"
+					depressed
+					elevation="2"
+					raised
 					>Register</v-btn
 				>
-				<v-btn @click="getUsers()" depressed elevation="2" raised>Check</v-btn>
 			</fieldset>
 		</v-form>
 	</div>
