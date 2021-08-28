@@ -21,13 +21,14 @@ const routes = [
 		component: () => import("../views/Login.vue"),
 	},
 	{
-		path: "/profile",
+		path: "/profile/:userId",
 		name: "Profile",
 		component: () => import("../views/Profile.vue"),
 	},
 ];
 
 const router = new VueRouter({
+	mode: "hash",
 	routes,
 });
 

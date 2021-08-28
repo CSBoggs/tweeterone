@@ -41,9 +41,6 @@ export default {
 		registerBtn() {
 			this.$router.push("/register");
 		},
-		loginBtn() {
-			this.$router.push("/login");
-		},
 	},
 	beforeCreate() {
 		this.$store.dispatch("authCheck");

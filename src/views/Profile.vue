@@ -96,9 +96,10 @@ export default {
 	},
 	methods: {
 		refreshProfile() {
+			console.log(this.$route.params.userId);
 			axios
 				.get("/users", {
-					params: { userId: this.$store.getters.getUserId },
+					params: { userId: this.$route.params.userId },
 				})
 				.then((response) => {
 					if (response.status === 200) {

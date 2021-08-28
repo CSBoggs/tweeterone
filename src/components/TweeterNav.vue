@@ -4,8 +4,8 @@
 			<v-btn
 				color="secondary"
 				torouter-link
-				to="/profile"
-				v-if="useRoute != '/profile'"
+				:to="'/profile/' + this.$store.getters.getUserId"
+				:v-if="useRoute !== '/profile/' + this.$store.getters.getUserId"
 				>Profile</v-btn
 			>
 			<v-btn color="secondary" torouter-link to="/" v-if="useRoute != '/'"
