@@ -1,7 +1,10 @@
 <template>
 	<div>
 		<span v-if="isLoggedIn">
-			<a @click="userLogout">Logout</a>
+			<v-btn @click="userLogout" color="error">Logout</v-btn>
+			<v-btn torouter-link to="/profile" v-if="useRoute != '/profile'"
+				>Profile</v-btn
+			>
 		</span>
 		<span v-else>
 			<v-btn
