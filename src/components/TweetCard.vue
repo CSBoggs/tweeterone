@@ -19,35 +19,65 @@
 
 			<v-card-actions>
 				<v-list-item class="grow">
-					<v-list-item-avatar color="grey darken-3">
-						<v-img class="elevation-6" alt="" src=""></v-img>
-					</v-list-item-avatar>
-
 					<v-list-item-content>
 						<v-list-item-title>{{
 							tweet.username
 						}}</v-list-item-title>
 					</v-list-item-content>
-
 					<v-row align="center" justify="end">
 						<v-icon class="mr-1"> mdi-heart </v-icon>
 						<span class="subheading mr-2">256</span>
 						<span class="mr-1">·</span>
 						<v-icon class="mr-1"> mdi-share-variant </v-icon>
 						<span class="subheading">45</span>
+						<div class="text-center">
+							<v-btn
+								v-if="tweet.userId == userId"
+								color="error"
+								class="mx-4"
+								fab
+								small
+								@click="overlay = !overlay"
+							>
+								<v-icon light> mdi-pencil </v-icon>
+							</v-btn>
+							<v-overlay :value="overlay" :opacity="opacity">
+								<v-btn icon @click="overlay = false">
+									<v-icon dark>mdi-close</v-icon>
+								</v-btn>
+								<v-container fluid>
+									<v-textarea
+										counter
+										:rules="rules"
+										clearable
+										rows="4"
+										clear-icon="mdi-close-circle"
+										label="Edit Tweet"
+										value=""
+										v-model="editText"
+									></v-textarea>
+									<v-btn
+										@click.prevent="editTweet()"
+										class="white--text"
+										color="primary"
+										depressed
+										>Submit</v-btn
+									>
+								</v-container>
+							</v-overlay>
+						</div>
+						<v-btn
+							v-if="tweet.userId == userId"
+							@click="deleteTweet"
+							class="mx-4"
+							color="error"
+							fab
+							small
+						>
+							<v-icon light> mdi-delete-outline </v-icon>
+						</v-btn>
 					</v-row>
 				</v-list-item>
-
-				<v-btn
-					v-if="tweet.userId == userId"
-					@click="deleteTweet"
-					class="mx-4"
-					color="red"
-					fab
-					small
-				>
-					<v-icon dark> mdi-minus </v-icon>
-				</v-btn>
 			</v-card-actions>
 		</v-card>
 	</div>
@@ -72,11 +102,30 @@ export default {
 	},
 	methods: {
 		deleteTweet() {
-			this.$store.dispatch("removeTweet", this.tweet.tweetId);
-			let userId = this.$store.getters.getUserId;
-			this.$store.dispatch("getTweetsById", userId);
+			this.$store.dispatch("removeTweet", this.tweet.tweetId).then(() => {
+				this.$store.dispatch("refreshTweets");
+			});
+		},
+		editTweet() {
+			this.$store
+				.dispatch("editTweet", {
+					tweetId: this.tweet.tweetId,
+					editText: this.editText,
+				})
+				.then(() => {
+					this.overlay = false;
+				})
+				.then(() => {
+					this.$store.dispatch("refreshTweets");
+				});
 		},
 	},
+	data: () => ({
+		overlay: false,
+		opacity: 0.9,
+		rules: [(v) => v.length <= 140 || "Max 140 characters"],
+		editText: "",
+	}),
 };
 </script>
 

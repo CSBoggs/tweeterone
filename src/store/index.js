@@ -111,7 +111,6 @@ export default new Vuex.Store({
 			axios
 				.get("/tweets", userId)
 				.then((response) => {
-					console.log(response);
 					this.commit("setUserTweets", response.data);
 				})
 				.catch(() => {
@@ -154,6 +153,17 @@ export default new Vuex.Store({
 					tweetId: tweetId,
 				},
 			});
+		},
+		editTweet({ getters }, payload) {
+			axios.patch("/tweets", {
+				loginToken: getters.getLoginToken,
+				tweetId: payload.tweetId,
+				content: payload.editText,
+			});
+		},
+		refreshTweets({ getters, dispatch }) {
+			let userId = getters.getUserId;
+			dispatch("getTweetsById", userId);
 		},
 	},
 	getters: {
