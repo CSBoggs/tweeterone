@@ -1,13 +1,6 @@
 <template>
 	<div>
 		<TweeterNav />
-		<span v-if="isLoggedIn">
-			<a @click="userLogout">Logout</a>
-			<router-link to="/login" />
-		</span>
-		<span v-else>
-			<router-link to="/register">Register</router-link>
-		</span>
 		<MainViewport />
 	</div>
 </template>
@@ -21,19 +14,8 @@ export default {
 		TweeterNav,
 		MainViewport,
 	},
-	beforeCreate() {
-		this.$store.dispatch("authCheck");
-	},
-	computed: {
-		isLoggedIn: function () {
-			return this.$store.getters.getAuthStatus;
-		},
-	},
-	methods: {
-		async userLogout() {
-			await this.$store.dispatch("userLogout");
-			this.$router.push("/login");
-		},
-	},
+	// beforeCreate() {
+	// 	this.$store.dispatch("authCheck");
+	// },
 };
 </script>

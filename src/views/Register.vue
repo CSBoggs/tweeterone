@@ -72,6 +72,7 @@
 					depressed
 					elevation="2"
 					raised
+					color="primary"
 					>Register</v-btn
 				>
 			</fieldset>
@@ -80,6 +81,7 @@
 </template>
 
 <script>
+import TweeterNav from "../components/TweeterNav.vue";
 export default {
 	name: "Register",
 	data: () => {
@@ -110,6 +112,9 @@ export default {
 		getUsers() {
 			this.$store.dispatch("getUsers");
 		},
+	},
+	components: {
+		TweeterNav,
 	},
 };
 </script>

@@ -1,23 +1,7 @@
 <template>
 	<div>
 		<TweeterNav />
-		<span v-if="isLoggedIn">
-			<a @click="userLogout">Logout</a>
-			<v-btn @click="loginBtn" color="primary" depressed elevation="2"
-				>Register</v-btn
-			>
-		</span>
-		<span v-else>
-			<v-btn
-				@click="registerBtn"
-				color="primary"
-				depressed
-				elevation="2"
-				right
-				>Register</v-btn
-			>
-		</span>
-		<form action="">
+		<form @submit="submitLogin()">
 			<label for="username">Username</label>
 			<v-text-field
 				name="username"
@@ -30,8 +14,8 @@
 				type="password"
 				v-model="userInfo.password"
 			/>
-			<v-btn @click.prevent="submitLogin()" depressed elevation="2" raised
-				>Submit</v-btn
+			<v-btn type="submit" depressed elevation="2" raised color="primary"
+				>Login</v-btn
 			>
 		</form>
 	</div>
@@ -44,11 +28,6 @@ export default {
 	name: "Login",
 	components: {
 		TweeterNav,
-	},
-	computed: {
-		isLoggedIn: function () {
-			return this.$store.getters.getAuthStatus;
-		},
 	},
 	methods: {
 		async userLogout() {
@@ -65,9 +44,9 @@ export default {
 			this.$router.push("/login");
 		},
 	},
-	beforeCreate() {
-		this.$store.dispatch("authCheck");
-	},
+	// beforeCreate() {
+	// 	this.$store.dispatch("authCheck");
+	// },
 	data: () => {
 		return {
 			userInfo: {
@@ -75,6 +54,11 @@ export default {
 				password: "",
 			},
 		};
+	},
+	computed: {
+		isLoggedIn: function () {
+			return this.$store.getters.getLoginToken != "";
+		},
 	},
 };
 </script>

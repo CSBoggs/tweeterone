@@ -124,13 +124,11 @@ export default new Vuex.Store({
 		},
 		redirect(state, route) {
 			if (router.currentRoute != route) {
-				router.push(route).catch((error) => {
-					console.log(error);
-				});
+				router.push(route);
 			}
 		},
 		authCheck({ dispatch }) {
-			if (this.getters.getAuthStatus) {
+			if (cookies.get("loginToken")) {
 				dispatch("redirect", "/");
 			} else {
 				if (router.currentRoute != "/login") {
@@ -170,8 +168,8 @@ export default new Vuex.Store({
 		getAuthStatus(state) {
 			return state.userAuth;
 		},
-		getLoginToken(state) {
-			return state.loginToken;
+		getLoginToken() {
+			return cookies.get("loginToken");
 		},
 		getUserId() {
 			return cookies.get("userId");
