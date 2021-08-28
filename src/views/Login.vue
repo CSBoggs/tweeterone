@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<form @submit="submitLogin()">
+		<form @submit.prevent="submitLogin()">
 			<label for="username">Username</label>
 			<v-text-field
 				name="username"
