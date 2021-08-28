@@ -14,8 +14,15 @@ export default {
 		TweeterNav,
 		MainViewport,
 	},
-	// beforeCreate() {
-	// 	this.$store.dispatch("authCheck");
-	// },
+	beforeCreate() {
+		this.$store.dispatch("authCheck");
+	},
 };
 </script>
+
+<style scoped>
+tweeterNav {
+	display: flex;
+	flex-direction: row-reverse;
+}
+</style>

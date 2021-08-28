@@ -1,12 +1,26 @@
 <template>
 	<div>
 		<span v-if="isLoggedIn">
-			<v-btn @click="userLogout" color="error">Logout</v-btn>
-			<v-btn torouter-link to="/profile" v-if="useRoute != '/profile'"
+			<v-btn
+				color="secondary"
+				torouter-link
+				to="/profile"
+				v-if="useRoute != '/profile'"
 				>Profile</v-btn
 			>
+			<v-btn color="secondary" torouter-link to="/" v-if="useRoute != '/'"
+				>Tweets</v-btn
+			>
+			<v-btn @click="userLogout" color="error">Logout</v-btn>
 		</span>
 		<span v-else>
+			<v-btn
+				color="secondary"
+				torouter-link
+				to="/login"
+				v-if="useRoute != '/login'"
+				>Login</v-btn
+			>
 			<v-btn
 				v-if="useRoute != '/register'"
 				@click="registerBtn"
@@ -46,4 +60,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+div {
+	display: grid;
+	place-items: center;
+}
+</style>

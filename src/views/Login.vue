@@ -1,10 +1,10 @@
 <template>
 	<div>
-		<TweeterNav />
 		<form @submit="submitLogin()">
 			<label for="username">Username</label>
 			<v-text-field
 				name="username"
+				max
 				type="text"
 				v-model="userInfo.username"
 			/>
@@ -18,6 +18,7 @@
 				>Login</v-btn
 			>
 		</form>
+		<TweeterNav />
 	</div>
 </template>
 
@@ -44,9 +45,9 @@ export default {
 			this.$router.push("/login");
 		},
 	},
-	// beforeCreate() {
-	// 	this.$store.dispatch("authCheck");
-	// },
+	beforeCreate() {
+		this.$store.dispatch("authCheck");
+	},
 	data: () => {
 		return {
 			userInfo: {
@@ -62,3 +63,17 @@ export default {
 	},
 };
 </script>
+
+<style scoped>
+div {
+	display: grid;
+	place-items: center;
+	padding-top: 3.5vh;
+}
+form {
+	display: grid;
+	place-items: center;
+	padding-top: 25vh;
+	width: 60vw;
+}
+</style>

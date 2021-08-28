@@ -117,6 +117,16 @@ export default new Vuex.Store({
 					console.error("no tweets found");
 				});
 		},
+		getUserById(userId) {
+			axios
+				.get("/users", userId)
+				.then((response) => {
+					return this(response.data);
+				})
+				.catch(() => {
+					console.error("no user found");
+				});
+		},
 		userLogout() {
 			cookies.remove("loginToken");
 			this.commit("setLoggedOut");

@@ -55,4 +55,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+div {
+	display: grid;
+	place-items: center;
+	min-width: 60vw;
+}
+</style>

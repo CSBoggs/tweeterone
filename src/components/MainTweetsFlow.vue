@@ -21,8 +21,8 @@ export default {
 
 <style scoped>
 div {
-    display: grid;
-    grid-template-columns: auto;
-    gap: 1vh;
+	display: grid;
+	grid-template-columns: auto;
+	gap: 2vh;
 }
 </style>

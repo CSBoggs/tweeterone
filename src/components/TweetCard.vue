@@ -6,14 +6,15 @@
 			class="mx-auto"
 			color="#26c6da"
 			dark
-			max-width="400"
+			min-width="400"
+			max-width="500"
 		>
 			<v-card-title>
-				<v-icon large left> mdi-twitter </v-icon>
+				<v-icon medium left> mdi-twitter </v-icon>
 				<span class="text-h6 font-weight-light">Tweeter</span>
 			</v-card-title>
 
-			<v-card-text class="text-h5 font-weight-bold">
+			<v-card-text class="text-h4 font-weight-bold">
 				"{{ tweet.content }}"
 			</v-card-text>
 
@@ -33,8 +34,8 @@
 						<div class="text-center">
 							<v-btn
 								v-if="tweet.userId == userId"
-								color="error"
-								class="mx-4"
+								color="primary"
+								class="mx-3"
 								fab
 								small
 								@click="overlay = !overlay"
@@ -69,7 +70,7 @@
 						<v-btn
 							v-if="tweet.userId == userId"
 							@click="deleteTweet"
-							class="mx-4"
+							class="mx-1"
 							color="error"
 							fab
 							small
