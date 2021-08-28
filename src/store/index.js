@@ -169,6 +169,12 @@ export default new Vuex.Store({
 				content: payload.editText,
 			});
 		},
+		editInfo({ getters }, payload) {
+			axios.patch("/users", {
+				loginToken: getters.getLoginToken,
+				[payload.label]: payload.newValue,
+			});
+		},
 		refreshTweets({ getters, dispatch }) {
 			let userId = getters.getUserId;
 			dispatch("getTweetsById", userId);

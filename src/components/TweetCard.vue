@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<v-card
-			elevation="3"
+			elevation="5"
 			shaped
 			class="mx-auto"
 			color="#26c6da"
@@ -15,7 +15,7 @@
 			</v-card-title>
 
 			<v-card-text class="text-h4 font-weight-bold">
-				"{{ tweet.content }}"
+				" {{ tweet.content }} "
 			</v-card-text>
 
 			<v-card-actions>
@@ -37,7 +37,7 @@
 								color="primary"
 								class="mx-3"
 								fab
-								small
+								x-small
 								@click="overlay = !overlay"
 							>
 								<v-icon light> mdi-pencil </v-icon>

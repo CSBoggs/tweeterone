@@ -8,55 +8,53 @@
 						<td>Username:</td>
 						<td>
 							{{ userInfo.username }}
-							<div class="text-center">
-								<v-btn
-									v-if="userInfo.userId == userId"
-									color="primary"
-									class="mx-3"
-									fab
-									small
-									@click="overlay = !overlay"
-								>
-									<v-icon light> mdi-pencil </v-icon>
-								</v-btn>
-								<v-overlay :value="overlay" :opacity="opacity">
-									<v-btn icon @click="overlay = false">
-										<v-icon dark>mdi-close</v-icon>
-									</v-btn>
-									<v-container fluid>
-										<v-textarea
-											counter
-											:rules="rules"
-											clearable
-											rows="4"
-											clear-icon="mdi-close-circle"
-											label="Edit Tweet"
-											value=""
-											v-model="editText"
-										></v-textarea>
-										<v-btn
-											@click.prevent="editInfo()"
-											class="white--text"
-											color="primary"
-											depressed
-											>Submit</v-btn
-										>
-									</v-container>
-								</v-overlay>
-							</div>
+						</td>
+						<td>
+							<EditProfile
+								@profileUpdated="refreshProfile()"
+								label="username"
+								displayLabel="Username"
+								:currentValue="userInfo.username"
+							/>
 						</td>
 					</tr>
 					<tr>
 						<td>Birthdate:</td>
-						<td>{{ userInfo.birthdate }}</td>
+						<td>
+							{{ userInfo.birthdate }}
+						</td>
+						<td>
+							<EditProfile
+								@profileUpdated="refreshProfile()"
+								label="birthdate"
+								displayLabel="Birthdate"
+								:currentValue="userInfo.birthdate"
+							/>
+						</td>
 					</tr>
 					<tr>
 						<td>Email:</td>
 						<td>{{ userInfo.email }}</td>
+						<td>
+							<EditProfile
+								@profileUpdated="refreshProfile()"
+								label="email"
+								displayLabel="Email"
+								:currentValue="userInfo.email"
+							/>
+						</td>
 					</tr>
 					<tr>
 						<td>Biography:</td>
 						<td>{{ userInfo.bio }}</td>
+						<td>
+							<EditProfile
+								@profileUpdated="refreshProfile()"
+								label="bio"
+								displayLabel="Biography"
+								:currentValue="userInfo.bio"
+							/>
+						</td>
 					</tr>
 				</tbody>
 			</template>
@@ -66,6 +64,7 @@
 
 <script>
 import TweeterNav from "../components/TweeterNav.vue";
+import EditProfile from "../components/EditProfile.vue";
 import axios from "axios";
 axios.defaults.headers.common["X-Api-Key"] = process.env.VUE_APP_API_KEY;
 axios.defaults.baseURL = "https://tweeterest.ml/api/";
@@ -74,6 +73,7 @@ export default {
 	name: "Profile",
 	components: {
 		TweeterNav,
+		EditProfile,
 	},
 	data: () => {
 		return {
@@ -94,41 +94,32 @@ export default {
 			editText: "",
 		};
 	},
+	methods: {
+		refreshProfile() {
+			axios
+				.get("/users", {
+					params: { userId: this.$store.getters.getUserId },
+				})
+				.then((response) => {
+					if (response.status === 200) {
+						this.userInfo.email = response.data[0].email;
+						this.userInfo.username = response.data[0].username;
+						this.userInfo.birthdate = response.data[0].birthdate;
+						this.userInfo.bio = response.data[0].bio;
+						this.userInfo.userId = response.data[0].userId;
+					}
+				})
+				.catch(() => {
+					console.error("no user found");
+				});
+		},
+	},
 	mounted() {
-		axios
-			.get("/users", {
-				params: { userId: this.$store.getters.getUserId },
-			})
-			.then((response) => {
-				if (response.status === 200) {
-					this.userInfo.email = response.data[0].email;
-					this.userInfo.username = response.data[0].username;
-					this.userInfo.birthdate = response.data[0].birthdate;
-					this.userInfo.bio = response.data[0].bio;
-				}
-			})
-			.catch(() => {
-				console.error("no user found");
-			});
+		this.refreshProfile();
 	},
 	computed: {
 		userId() {
 			return this.$store.getters.getUserId;
-		},
-	},
-	methods: {
-		editInfo() {
-			this.$store
-				.dispatch("editTweet", {
-					tweetId: this.tweet.tweetId,
-					editText: this.editText,
-				})
-				.then(() => {
-					this.overlay = false;
-				})
-				.then(() => {
-					this.$store.dispatch("refreshTweets");
-				});
 		},
 	},
 };
