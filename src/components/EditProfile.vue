@@ -19,6 +19,7 @@
 					counter
 					:rules="rules"
 					clearable
+					cols="40"
 					rows="4"
 					clear-icon="mdi-close-circle"
 					:label="displayLabel"
@@ -83,14 +84,10 @@ export default {
 	mounted() {
 		axios
 			.get("/users", {
-				params: { userId: this.$store.getters.getUserId },
+				params: { userId: this.$route.params.userId },
 			})
 			.then((response) => {
 				if (response.status === 200) {
-					this.userInfo.email = response.data[0].email;
-					this.userInfo.username = response.data[0].username;
-					this.userInfo.birthdate = response.data[0].birthdate;
-					this.userInfo.bio = response.data[0].bio;
 					this.userInfo.userId = response.data[0].userId;
 				}
 			})

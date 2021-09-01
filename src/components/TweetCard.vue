@@ -1,12 +1,12 @@
 <template>
 	<div>
+		<!-- Vuetify Card Component -->
 		<v-card
 			elevation="5"
 			shaped
 			class="mx-auto"
 			color="#26c6da"
 			dark
-			min-width="400"
 			max-width="500"
 		>
 			<v-card-title>
@@ -14,24 +14,46 @@
 				<span class="text-h6 font-weight-light">Tweeter</span>
 			</v-card-title>
 
-			<v-card-text class="text-h4 font-weight-bold">
+			<v-card-text class="text-h5 font-weight-bold">
 				" {{ tweet.content }} "
 			</v-card-text>
 
 			<v-card-actions>
 				<v-list-item class="grow">
 					<v-list-item-content>
-						<v-list-item-title>{{
-							tweet.username
-						}}</v-list-item-title>
+						<v-list-item-title>
+							<!-- Username and link to profile -->
+							<router-link :to="'/profile/' + this.tweet.userId">
+								{{ tweet.username }}
+							</router-link>
+							<span class="mr-2">·</span>
+							<v-icon class="mr-2" large>
+								mdi-account-multiple-plus
+							</v-icon>
+						</v-list-item-title>
 					</v-list-item-content>
 					<v-row align="center" justify="end">
-						<v-icon class="mr-1"> mdi-heart </v-icon>
-						<span class="subheading mr-2">256</span>
-						<span class="mr-1">·</span>
-						<v-icon class="mr-1"> mdi-share-variant </v-icon>
-						<span class="subheading">45</span>
+						<!-- Like/unlike logic -->
+						<v-icon v-if="tweet.userId == userId" class="mr-1">
+							mdi-heart-outline
+						</v-icon>
+						<button
+							@click.prevent="likeToggle()"
+							v-else-if="!loadingLike"
+						>
+							<v-icon :class="{ fill: isLiked }" class="mr-1">
+								mdi-heart
+							</v-icon>
+						</button>
+						<span class="subheading mr-2">
+							{{ totalLikes }}
+						</span>
+						<span class="mr-2">·</span>
+						<v-icon class="mr-2" medium>
+							mdi-comment-text-multiple
+						</v-icon>
 						<div class="text-center">
+							<!-- Overlay to edit or delete tweet with ownership -->
 							<v-btn
 								v-if="tweet.userId == userId"
 								color="primary"
@@ -51,6 +73,7 @@
 										counter
 										:rules="rules"
 										clearable
+										cols="60"
 										rows="4"
 										clear-icon="mdi-close-circle"
 										label="Edit Tweet"
@@ -69,11 +92,11 @@
 						</div>
 						<v-btn
 							v-if="tweet.userId == userId"
-							@click="deleteTweet"
+							@click.prevent="deleteTweet"
 							class="mx-1"
 							color="error"
 							fab
-							small
+							x-small
 						>
 							<v-icon light> mdi-delete-outline </v-icon>
 						</v-btn>
@@ -85,11 +108,18 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
 	name: "TweetCard",
 	computed: {
 		userId() {
 			return this.$store.getters.getUserId;
+		},
+		isLiked() {
+			return this.isLikedBy.includes(parseInt(this.userId));
+		},
+		totalLikes() {
+			return this.isLikedBy.length;
 		},
 	},
 	props: {
@@ -98,7 +128,6 @@ export default {
 			content: "",
 			userId: "",
 			tweetId: "",
-			loginToken: "",
 		},
 	},
 	methods: {
@@ -120,14 +149,53 @@ export default {
 					this.$store.dispatch("refreshTweets");
 				});
 		},
+		likeToggle() {
+			this.loadingLike = true;
+			if (this.isLiked) {
+				this.$store
+					.dispatch("unlikeTweet", this.tweet.tweetId)
+					.then(() => {
+						this.refreshLikes();
+					});
+			} else {
+				this.$store
+					.dispatch("likeTweet", this.tweet.tweetId)
+					.then(() => {
+						this.refreshLikes();
+					});
+			}
+		},
+		refreshLikes() {
+			axios
+				.request({
+					url: "/tweet-likes",
+					method: "GET",
+					params: { tweetId: this.tweet.tweetId },
+				})
+				.then((response) => {
+					this.isLikedBy = response.data.map((user) => user.userId);
+				})
+				.then(() => {
+					this.loadingLike = false;
+				});
+		},
+	},
+	mounted() {
+		this.refreshLikes();
 	},
 	data: () => ({
 		overlay: false,
 		opacity: 0.9,
 		rules: [(v) => v.length <= 140 || "Max 140 characters"],
 		editText: "",
+		isLikedBy: [],
+		loadingLike: false,
 	}),
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.fill {
+	color: crimson;
+}
+</style>

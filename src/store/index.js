@@ -162,6 +162,14 @@ export default new Vuex.Store({
 				},
 			});
 		},
+		removeUser({ getters }, deletePassword) {
+			axios.delete("/users", {
+				data: {
+					loginToken: getters.getLoginToken,
+					password: deletePassword,
+				},
+			});
+		},
 		editTweet({ getters }, payload) {
 			axios.patch("/tweets", {
 				loginToken: getters.getLoginToken,
@@ -178,6 +186,38 @@ export default new Vuex.Store({
 		refreshTweets({ getters, dispatch }) {
 			let userId = getters.getUserId;
 			dispatch("getTweetsById", userId);
+		},
+		likeTweet({ getters }, payload) {
+			axios.request({
+				url: "/tweet-likes",
+				method: "POST",
+				data: {
+					loginToken: getters.getLoginToken,
+					tweetId: payload,
+				},
+			});
+		},
+		// likeTweet({ getters }, payload) {
+		// 	axios
+		// 		.post("/tweet-likes", {
+		// 			data: {
+		// 				loginToken: getters.getLoginToken,
+		// 				tweetId: payload,
+		// 			},
+		// 		})
+		// 		.then((response) => {
+		// 			console.log(response);
+		// 		});
+		// },
+		unlikeTweet({ getters }, payload) {
+			axios.request({
+				url: "/tweet-likes",
+				method: "DELETE",
+				data: {
+					loginToken: getters.getLoginToken,
+					tweetId: payload,
+				},
+			});
 		},
 	},
 	getters: {

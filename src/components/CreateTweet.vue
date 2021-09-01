@@ -10,7 +10,7 @@
 					>Tweet</v-text-field
 				>
 				<v-btn
-					@click="postTweet"
+					@click.prevent="postTweet"
 					color="primary"
 					depressed
 					elevation="2"
@@ -55,10 +55,4 @@ export default {
 };
 </script>
 
-<style scoped>
-div {
-	display: grid;
-	place-items: center;
-	min-width: 60vw;
-}
-</style>
+<style scoped></style>

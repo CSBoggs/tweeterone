@@ -27,7 +27,7 @@
 							<EditProfile
 								@profileUpdated="refreshProfile()"
 								label="birthdate"
-								displayLabel="Birthdate"
+								displayLabel="Birthdate in Year-Month-Day (2020-01-01)"
 								:currentValue="userInfo.birthdate"
 							/>
 						</td>
@@ -59,6 +59,40 @@
 				</tbody>
 			</template>
 		</v-simple-table>
+		<v-btn
+			v-if="userInfo.userId == userId"
+			class="mx-1"
+			color="error"
+			fab
+			small
+			@click="overlay = !overlay"
+		>
+			<v-icon light> mdi-delete-outline </v-icon>
+		</v-btn>
+		<v-overlay :value="overlay" :opacity="opacity">
+			<v-btn icon @click="overlay = false">
+				<v-icon dark>mdi-close</v-icon>
+			</v-btn>
+			<v-container fluid>
+				<v-textarea
+					counter
+					:rules="rules"
+					clearable
+					cols="60"
+					rows="4"
+					clear-icon="mdi-close-circle"
+					label="To delete your user account, please enter your password"
+					v-model="deletePassword"
+				></v-textarea>
+				<v-btn
+					@click.prevent="deleteUser()"
+					class="white--text"
+					color="error"
+					depressed
+					>Delete User</v-btn
+				>
+			</v-container>
+		</v-overlay>
 	</div>
 </template>
 
@@ -92,6 +126,7 @@ export default {
 			opacity: 0.9,
 			rules: [(v) => v.length <= 140 || "Max 140 characters"],
 			editText: "",
+			deletePassword: "",
 		};
 	},
 	methods: {
@@ -113,6 +148,11 @@ export default {
 				.catch(() => {
 					console.error("no user found");
 				});
+		},
+		deleteUser() {
+			this.$store.dispatch("removeUser", this.deletePassword).then(() => {
+				this.$store.dispatch("userLogout");
+			});
 		},
 	},
 	mounted() {

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div id="tweetLayout">
 		<TweetCard v-for="(tweet, id) in tweets" :key="id" :tweet="tweet" />
 	</div>
 </template>
@@ -20,9 +20,13 @@ export default {
 </script>
 
 <style scoped>
-div {
+#tweetLayout {
 	display: grid;
-	grid-template-columns: auto;
+	margin-left: 3.5vw;
+	margin-right: 3.5vw;
+	padding-top: 5vh;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto;
 	gap: 2vh;
 }
 </style>

@@ -6,7 +6,7 @@
 				torouter-link
 				:to="'/profile/' + this.$store.getters.getUserId"
 				:v-if="useRoute !== '/profile/' + this.$store.getters.getUserId"
-				>Profile</v-btn
+				>my Profile</v-btn
 			>
 			<v-btn color="secondary" torouter-link to="/" v-if="useRoute != '/'"
 				>Tweets</v-btn
