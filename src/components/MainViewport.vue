@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<CreateTweet />
-		<MainTweetsFlow :tweets="tweets" />
+		<MainTweetsFlow :tweets="tweets" :key="$store.getters.getLoginToken" />
 		<DiscoverTweetsFlow />
 	</div>
 </template>

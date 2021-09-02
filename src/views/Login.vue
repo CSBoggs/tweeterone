@@ -36,7 +36,9 @@ export default {
 			this.$router.push("/login");
 		},
 		submitLogin() {
-			this.$store.dispatch("userLogin", this.userInfo);
+			this.$store.dispatch("userLogin", this.userInfo).then(() => {
+				this.$forceUpdate();
+			});
 		},
 		registerBtn() {
 			this.$router.push("/register");

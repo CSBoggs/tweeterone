@@ -7,7 +7,10 @@
 				}}</v-expansion-panel-header>
 				<v-expansion-panel-content>
 					"{{ comment.content }}"
-					<EditComment :comment="comment" />
+					<EditComment
+						:comment="comment"
+						@refreshComments="$emit('refreshComments')"
+					/>
 				</v-expansion-panel-content>
 			</v-expansion-panel>
 		</v-expansion-panels>

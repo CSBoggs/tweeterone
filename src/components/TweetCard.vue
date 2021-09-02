@@ -100,14 +100,6 @@
 						<span class="subheading mr-2">
 							{{ totalLikes }}
 						</span>
-						<span class="mr-2">·</span>
-						<v-icon class="mr-2" medium>
-							mdi-comment-text-multiple
-						</v-icon>
-						<!-- Comment total counter -->
-						<span class="subheading mr-2">
-							{{ totalComments }}
-						</span>
 						<div class="text-center"></div>
 					</v-row>
 				</v-list-item>
@@ -132,9 +124,6 @@ export default {
 		},
 		totalLikes() {
 			return this.isLikedBy.length;
-		},
-		totalComments() {
-			return this.comments.length;
 		},
 	},
 	props: {

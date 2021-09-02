@@ -38,7 +38,7 @@ export default new Vuex.Store({
 		},
 	},
 	actions: {
-		userLogin({ commit }, payload) {
+		userLogin({ commit, dispatch }, payload) {
 			axios
 				.post("/login", payload)
 				.then((response) => {
@@ -49,12 +49,15 @@ export default new Vuex.Store({
 						commit("setLoggedIn", true);
 						cookies.set("loginToken", response.data.loginToken);
 						cookies.set("userId", response.data.userId);
-						this.dispatch("redirect", "/");
 					} else {
 						alert(
 							"username and/or password are invalid, please try again"
 						);
 					}
+				})
+				.then(() => {
+					dispatch("authCheck");
+					location.reload();
 				})
 				.catch(() => {
 					alert(

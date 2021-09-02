@@ -60,8 +60,8 @@ export default {
 						content: this.commentContent,
 					},
 				})
-				.then((response) => {
-					console.log(response);
+				.then(() => {
+					this.$emit("refreshComments");
 				});
 		},
 	},

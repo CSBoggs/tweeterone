@@ -2,13 +2,22 @@
 	<div>
 		<v-expansion-panels>
 			<v-expansion-panel>
-				<v-expansion-panel-header>Comments</v-expansion-panel-header>
+				<v-expansion-panel-header>
+					<v-icon class="mr-2" medium>
+						mdi-comment-text-multiple
+					</v-icon>
+					({{ comments.length }})
+				</v-expansion-panel-header>
 				<v-expansion-panel-content>
-					<CreateComment :tweetId="tweetId" />
+					<CreateComment
+						:tweetId="tweetId"
+						@refreshComments="fetchTweetComments"
+					/>
 					<CommentCard
 						v-for="(comment, id) in comments"
 						:key="id"
 						:comment="comment"
+						@refreshComments="fetchTweetComments"
 					/>
 				</v-expansion-panel-content>
 			</v-expansion-panel>

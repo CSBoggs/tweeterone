@@ -28,11 +28,9 @@
 				<v-textarea
 					counter
 					:rules="rules"
-					clearable
 					rounded
 					cols="60"
 					rows="4"
-					clear-icon="mdi-close-circle"
 					label="Edit Comment"
 					value=""
 					v-model="editCommentContent"
@@ -75,8 +73,9 @@ export default {
 						content: this.editCommentContent,
 					},
 				})
-				.then((response) => {
-					console.log(response);
+				.then(() => {
+					this.$emit("refreshComments");
+					this.overlay = false;
 				});
 		},
 		deleteComment() {
@@ -89,8 +88,8 @@ export default {
 						commentId: this.comment.commentId,
 					},
 				})
-				.then((response) => {
-					console.log(response);
+				.then(() => {
+					this.$emit("refreshComments");
 				});
 		},
 	},
@@ -101,6 +100,9 @@ export default {
 		editCommentContent: "",
 		zIndex: 2,
 	}),
+	mounted() {
+		this.editCommentContent = this.comment.content;
+	},
 };
 </script>
 
