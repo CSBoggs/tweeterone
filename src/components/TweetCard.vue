@@ -16,8 +16,8 @@
 				<v-btn
 					v-if="tweet.userId == userId"
 					color="primary"
-					class="mx-10"
-					fab
+					class="mx-12"
+					rounded
 					absolute
 					right
 					x-small
@@ -34,6 +34,7 @@
 							counter
 							:rules="rules"
 							clearable
+							rounded
 							cols="60"
 							rows="4"
 							clear-icon="mdi-close-circle"
@@ -54,10 +55,10 @@
 				<v-btn
 					v-if="tweet.userId == userId"
 					@click.prevent="deleteTweet"
-					class="mx-1"
+					class="mx-0"
 					color="error"
-					fab
 					absolute
+					rounded
 					right
 					x-small
 				>
@@ -100,12 +101,9 @@
 							{{ totalLikes }}
 						</span>
 						<span class="mr-2">·</span>
-						<!-- Comment display toggle -->
-						<button @click.prevent="commentToggle()">
-							<v-icon class="mr-2" medium>
-								mdi-comment-text-multiple
-							</v-icon>
-						</button>
+						<v-icon class="mr-2" medium>
+							mdi-comment-text-multiple
+						</v-icon>
 						<!-- Comment total counter -->
 						<span class="subheading mr-2">
 							{{ totalComments }}
@@ -114,13 +112,16 @@
 					</v-row>
 				</v-list-item>
 			</v-card-actions>
+			<MainCommentsFlow :tweetId="parseInt(tweet.tweetId)" />
 		</v-card>
 	</div>
 </template>
 
 <script>
 import axios from "axios";
+import MainCommentsFlow from "./MainCommentsFlow.vue";
 export default {
+	components: { MainCommentsFlow },
 	name: "TweetCard",
 	computed: {
 		userId() {
