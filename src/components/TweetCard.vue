@@ -12,6 +12,57 @@
 			<v-card-title>
 				<v-icon medium left> mdi-twitter </v-icon>
 				<span class="text-h6 font-weight-light">Tweeter</span>
+				<!-- Overlay to edit or delete tweet with ownership -->
+				<v-btn
+					v-if="tweet.userId == userId"
+					color="primary"
+					class="mx-10"
+					fab
+					absolute
+					right
+					x-small
+					@click="overlay = !overlay"
+				>
+					<v-icon light> mdi-pencil </v-icon>
+				</v-btn>
+				<v-overlay :value="overlay" :opacity="opacity">
+					<v-btn icon @click="overlay = false">
+						<v-icon dark>mdi-close</v-icon>
+					</v-btn>
+					<v-container fluid>
+						<v-textarea
+							counter
+							:rules="rules"
+							clearable
+							cols="60"
+							rows="4"
+							clear-icon="mdi-close-circle"
+							label="Edit Tweet"
+							value=""
+							v-model="editText"
+						></v-textarea>
+						<v-btn
+							@click.prevent="editTweet()"
+							class="white--text"
+							color="primary"
+							depressed
+							>Submit</v-btn
+						>
+					</v-container>
+				</v-overlay>
+				<!-- Delete tweet with ownership -->
+				<v-btn
+					v-if="tweet.userId == userId"
+					@click.prevent="deleteTweet"
+					class="mx-1"
+					color="error"
+					fab
+					absolute
+					right
+					x-small
+				>
+					<v-icon light> mdi-delete-outline </v-icon>
+				</v-btn>
 			</v-card-title>
 
 			<v-card-text class="text-h5 font-weight-bold">
@@ -23,13 +74,12 @@
 					<v-list-item-content>
 						<v-list-item-title>
 							<!-- Username and link to profile -->
+							<v-icon class="mr-5" large>
+								mdi-account-multiple-plus
+							</v-icon>
 							<router-link :to="'/profile/' + this.tweet.userId">
 								{{ tweet.username }}
 							</router-link>
-							<span class="mr-2">·</span>
-							<v-icon class="mr-2" large>
-								mdi-account-multiple-plus
-							</v-icon>
 						</v-list-item-title>
 					</v-list-item-content>
 					<v-row align="center" justify="end">
@@ -45,61 +95,22 @@
 								mdi-heart
 							</v-icon>
 						</button>
+						<!-- Total likes counter -->
 						<span class="subheading mr-2">
 							{{ totalLikes }}
 						</span>
 						<span class="mr-2">·</span>
-						<v-icon class="mr-2" medium>
-							mdi-comment-text-multiple
-						</v-icon>
-						<div class="text-center">
-							<!-- Overlay to edit or delete tweet with ownership -->
-							<v-btn
-								v-if="tweet.userId == userId"
-								color="primary"
-								class="mx-3"
-								fab
-								x-small
-								@click="overlay = !overlay"
-							>
-								<v-icon light> mdi-pencil </v-icon>
-							</v-btn>
-							<v-overlay :value="overlay" :opacity="opacity">
-								<v-btn icon @click="overlay = false">
-									<v-icon dark>mdi-close</v-icon>
-								</v-btn>
-								<v-container fluid>
-									<v-textarea
-										counter
-										:rules="rules"
-										clearable
-										cols="60"
-										rows="4"
-										clear-icon="mdi-close-circle"
-										label="Edit Tweet"
-										value=""
-										v-model="editText"
-									></v-textarea>
-									<v-btn
-										@click.prevent="editTweet()"
-										class="white--text"
-										color="primary"
-										depressed
-										>Submit</v-btn
-									>
-								</v-container>
-							</v-overlay>
-						</div>
-						<v-btn
-							v-if="tweet.userId == userId"
-							@click.prevent="deleteTweet"
-							class="mx-1"
-							color="error"
-							fab
-							x-small
-						>
-							<v-icon light> mdi-delete-outline </v-icon>
-						</v-btn>
+						<!-- Comment display toggle -->
+						<button @click.prevent="commentToggle()">
+							<v-icon class="mr-2" medium>
+								mdi-comment-text-multiple
+							</v-icon>
+						</button>
+						<!-- Comment total counter -->
+						<span class="subheading mr-2">
+							{{ totalComments }}
+						</span>
+						<div class="text-center"></div>
 					</v-row>
 				</v-list-item>
 			</v-card-actions>
@@ -120,6 +131,9 @@ export default {
 		},
 		totalLikes() {
 			return this.isLikedBy.length;
+		},
+		totalComments() {
+			return this.comments.length;
 		},
 	},
 	props: {
@@ -189,7 +203,9 @@ export default {
 		rules: [(v) => v.length <= 140 || "Max 140 characters"],
 		editText: "",
 		isLikedBy: [],
+		comments: [],
 		loadingLike: false,
+		loadingComment: false,
 	}),
 };
 </script>
