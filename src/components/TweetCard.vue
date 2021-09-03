@@ -15,9 +15,10 @@
 				<!-- Overlay to edit or delete tweet with ownership -->
 				<v-btn
 					v-if="tweet.userId == userId"
+					style="z-index: 1"
 					color="primary"
-					class="mx-12"
-					rounded
+					class="mx-9"
+					fab
 					absolute
 					right
 					x-small
@@ -33,11 +34,8 @@
 						<v-textarea
 							counter
 							:rules="rules"
-							clearable
-							rounded
 							cols="60"
 							rows="4"
-							clear-icon="mdi-close-circle"
 							label="Edit Tweet"
 							value=""
 							v-model="editText"
@@ -55,10 +53,11 @@
 				<v-btn
 					v-if="tweet.userId == userId"
 					@click.prevent="deleteTweet"
+					style="z-index: 1"
 					class="mx-0"
 					color="error"
 					absolute
-					rounded
+					fab
 					right
 					x-small
 				>
@@ -85,14 +84,23 @@
 					</v-list-item-content>
 					<v-row align="center" justify="end">
 						<!-- Like/unlike logic -->
-						<v-icon v-if="tweet.userId == userId" class="mr-1">
+						<v-icon
+							v-if="tweet.userId == userId"
+							class="mr-1"
+							large
+							color="rgb(223, 96, 138)"
+						>
 							mdi-heart-outline
 						</v-icon>
 						<button
 							@click.prevent="likeToggle()"
 							v-else-if="!loadingLike"
 						>
-							<v-icon :class="{ fill: isLiked }" class="mr-1">
+							<v-icon
+								:class="{ fill: isLiked }"
+								class="mr-1"
+								large
+							>
 								mdi-heart
 							</v-icon>
 						</button>
@@ -202,6 +210,6 @@ export default {
 
 <style scoped>
 .fill {
-	color: crimson;
+	color: rgb(223, 96, 138);
 }
 </style>

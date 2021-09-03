@@ -93,12 +93,14 @@
 				>
 			</v-container>
 		</v-overlay>
+		<MainTweetsFlow :tweets="tweets" :key="$store.getters.getLoginToken" />
 	</div>
 </template>
 
 <script>
 import TweeterNav from "../components/TweeterNav.vue";
 import EditProfile from "../components/EditProfile.vue";
+import MainTweetsFlow from "../components/MainTweetsFlow.vue";
 import axios from "axios";
 axios.defaults.headers.common["X-Api-Key"] = process.env.VUE_APP_API_KEY;
 axios.defaults.baseURL = "https://tweeterest.ml/api/";
@@ -108,6 +110,7 @@ export default {
 	components: {
 		TweeterNav,
 		EditProfile,
+		MainTweetsFlow,
 	},
 	data: () => {
 		return {

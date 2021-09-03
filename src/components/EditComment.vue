@@ -2,24 +2,25 @@
 	<div>
 		<v-btn
 			v-if="comment.userId == userId"
-			color="primary"
+			@click.prevent="deleteComment()"
 			class="mx-0"
-			rounded
+			color="error"
+			fab
+			x-small
+		>
+			<v-icon light> mdi-delete-outline </v-icon>
+		</v-btn>
+		<v-btn
+			v-if="comment.userId == userId"
+			color="primary"
+			class="mx-1"
+			fab
 			x-small
 			@click="overlay = !overlay"
 		>
 			<v-icon light> mdi-pencil </v-icon>
 		</v-btn>
-		<v-btn
-			v-if="comment.userId == userId"
-			@click.prevent="deleteComment()"
-			class="mx-0"
-			color="error"
-			rounded
-			x-small
-		>
-			<v-icon light> mdi-delete-outline </v-icon>
-		</v-btn>
+
 		<v-overlay :value="overlay" :opacity="opacity" :z-index="zIndex">
 			<v-btn icon @click="overlay = false">
 				<v-icon dark>mdi-close</v-icon>
@@ -28,7 +29,6 @@
 				<v-textarea
 					counter
 					:rules="rules"
-					rounded
 					cols="60"
 					rows="4"
 					label="Edit Comment"
@@ -98,7 +98,7 @@ export default {
 		opacity: 0.9,
 		rules: [(v) => v.length <= 140 || "Max 140 characters"],
 		editCommentContent: "",
-		zIndex: 2,
+		zIndex: 99,
 	}),
 	mounted() {
 		this.editCommentContent = this.comment.content;

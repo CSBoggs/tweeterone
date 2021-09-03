@@ -1,28 +1,38 @@
 <template>
 	<div>
-		<v-expansion-panels v-model="panel" multiple>
-			<v-expansion-panel>
-				<v-expansion-panel-header>{{
-					comment.username + " says " + commentPreview
-				}}</v-expansion-panel-header>
-				<v-expansion-panel-content>
-					"{{ comment.content }}"
-					<EditComment
-						:comment="comment"
-						@refreshComments="$emit('refreshComments')"
-					/>
-				</v-expansion-panel-content>
-			</v-expansion-panel>
-		</v-expansion-panels>
+		<v-expansion-panel>
+			<v-expansion-panel-header color="#26c6da">{{
+				comment.username + " says " + commentPreview
+			}}</v-expansion-panel-header>
+			<v-expansion-panel-content color="#26c6da">
+				<v-container>
+					<v-row justify="center">"{{ comment.content }}"</v-row>
+
+					<v-row justify="space-between">
+						<EditComment
+							:comment="comment"
+							@refreshComments="$emit('refreshComments')"
+						/>
+						<LikeComment
+							:comment="comment"
+							:tweetId="tweetId"
+							@refreshComments="$emit('refreshComments')"
+						/>
+					</v-row>
+				</v-container>
+			</v-expansion-panel-content>
+		</v-expansion-panel>
 	</div>
 </template>
 
 <script>
 import EditComment from "../components/EditComment.vue";
+import LikeComment from "../components/LikeComment.vue";
 export default {
 	name: "CommentCard",
 	components: {
 		EditComment,
+		LikeComment,
 	},
 	computed: {
 		userId() {
@@ -37,6 +47,9 @@ export default {
 	props: {
 		comment: {
 			type: Object,
+		},
+		tweetId: {
+			type: Number,
 		},
 	},
 	methods: {

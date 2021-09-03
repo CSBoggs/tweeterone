@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-container>
+		<v-container id="createTweet">
 			<v-form ref="form">
 				<v-text-field
 					v-model="tweetContent"
@@ -55,4 +55,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+#createTweet {
+	width: 45vw;
+}
+</style>
