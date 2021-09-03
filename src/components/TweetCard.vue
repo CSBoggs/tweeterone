@@ -74,9 +74,10 @@
 					<v-list-item-content>
 						<v-list-item-title>
 							<!-- Username and link to profile -->
-							<v-icon class="mr-5" large>
-								mdi-account-multiple-plus
-							</v-icon>
+							<FollowUser
+								:tweetUserId="tweet.userId"
+								@refreshLikes="refreshLikes"
+							/>
 							<router-link :to="'/profile/' + this.tweet.userId">
 								{{ tweet.username }}
 							</router-link>
@@ -120,8 +121,9 @@
 <script>
 import axios from "axios";
 import MainCommentsFlow from "./MainCommentsFlow.vue";
+import FollowUser from "./FollowUser.vue";
 export default {
-	components: { MainCommentsFlow },
+	components: { MainCommentsFlow, FollowUser },
 	name: "TweetCard",
 	computed: {
 		userId() {

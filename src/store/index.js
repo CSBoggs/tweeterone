@@ -16,6 +16,7 @@ export default new Vuex.Store({
 		userId: "",
 		loginToken: "",
 		tweets: [],
+		follows: [],
 	},
 	mutations: {
 		setLoggedIn(state) {
@@ -35,6 +36,9 @@ export default new Vuex.Store({
 		},
 		setUserTweets(state, payload) {
 			state.tweets = payload;
+		},
+		setUserFollows(state, payload) {
+			state.follows = payload;
 		},
 	},
 	actions: {
@@ -120,6 +124,16 @@ export default new Vuex.Store({
 					console.error("no tweets found");
 				});
 		},
+		getFollowsById(userId) {
+			axios
+				.get("/follows", userId)
+				.then((response) => {
+					this.commit("setUserFollows", response.data);
+				})
+				.catch(() => {
+					console.error("no follows found");
+				});
+		},
 		getUserById(userId) {
 			axios
 				.get("/users", userId)
@@ -200,18 +214,6 @@ export default new Vuex.Store({
 				},
 			});
 		},
-		// likeTweet({ getters }, payload) {
-		// 	axios
-		// 		.post("/tweet-likes", {
-		// 			data: {
-		// 				loginToken: getters.getLoginToken,
-		// 				tweetId: payload,
-		// 			},
-		// 		})
-		// 		.then((response) => {
-		// 			console.log(response);
-		// 		});
-		// },
 		unlikeTweet({ getters }, payload) {
 			axios.request({
 				url: "/tweet-likes",
