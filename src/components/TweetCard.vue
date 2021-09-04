@@ -14,7 +14,7 @@
 				<span class="text-h6 font-weight-light">Tweeter</span>
 				<!-- Overlay to edit or delete tweet with ownership -->
 				<v-btn
-					v-if="tweet.userId == userId"
+					v-if="tweet.userId == userId && !isPreview"
 					style="z-index: 1"
 					color="primary"
 					class="mx-9"
@@ -51,7 +51,7 @@
 				</v-overlay>
 				<!-- Delete tweet with ownership -->
 				<v-btn
-					v-if="tweet.userId == userId"
+					v-if="tweet.userId == userId && !isPreview"
 					@click.prevent="deleteTweet"
 					style="z-index: 1"
 					class="mx-0"
@@ -75,6 +75,7 @@
 						<v-list-item-title>
 							<!-- Username and link to profile -->
 							<FollowUser
+								v-if="!isPreview"
 								:tweetUserId="tweet.userId"
 								@refreshLikes="refreshLikes"
 							/>
@@ -94,6 +95,7 @@
 							mdi-heart-outline
 						</v-icon>
 						<button
+							:disabled="isPreview"
 							@click.prevent="likeToggle()"
 							v-else-if="!loadingLike"
 						>
@@ -113,13 +115,17 @@
 					</v-row>
 				</v-list-item>
 			</v-card-actions>
-			<MainCommentsFlow :tweetId="parseInt(tweet.tweetId)" />
+			<MainCommentsFlow
+				:tweetId="parseInt(tweet.tweetId)"
+				v-if="!isPreview"
+			/>
 		</v-card>
 	</div>
 </template>
 
 <script>
 import axios from "axios";
+import cookies from "vue-cookies";
 import MainCommentsFlow from "./MainCommentsFlow.vue";
 import FollowUser from "./FollowUser.vue";
 export default {
@@ -134,6 +140,9 @@ export default {
 		},
 		totalLikes() {
 			return this.isLikedBy.length;
+		},
+		isPreview() {
+			return !cookies.get("loginToken");
 		},
 	},
 	props: {

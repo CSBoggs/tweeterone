@@ -6,6 +6,16 @@ import router from "../router";
 
 axios.defaults.headers.common["X-Api-Key"] = process.env.VUE_APP_API_KEY;
 axios.defaults.baseURL = "https://tweeterest.ml/api/";
+// axios.interceptors.response.use(
+// 	function (response) {
+// 		return response;
+// 	},
+// 	function (error) {
+// 		cookies.remove("loginToken");
+// 		this.$store.commit("setLoggedOut");
+// 		return Promise.reject(error);
+// 	}
+// );
 
 Vue.use(Vuex);
 
@@ -29,9 +39,9 @@ export default new Vuex.Store({
 			state.userName = payload;
 		},
 		setUserID(state, payload) {
-			state.userID = payload;
+			state.userId = payload;
 		},
-		setAuthStatus(state, payload) {
+		setLoginToken(state, payload) {
 			state.loginToken = payload;
 		},
 		setUserTweets(state, payload) {
@@ -49,11 +59,11 @@ export default new Vuex.Store({
 					if (response.status === 201) {
 						commit("setUserName", response.data.username);
 						commit("setUserID", response.data.userId);
-						commit("setAuthStatus", response.data.loginToken);
+						commit("setLoginToken", response.data.loginToken);
 						commit("setLoggedIn", true);
 						cookies.set("loginToken", response.data.loginToken);
 						cookies.set("userId", response.data.userId);
-						location.reload();
+						// location.reload();
 					} else {
 						alert(
 							"username and/or password are invalid, please try again"
@@ -77,7 +87,7 @@ export default new Vuex.Store({
 					if (response.status === 201) {
 						commit("setUserName", response.data.username);
 						commit("setUserID", response.data.userId);
-						commit("setAuthStatus", response.data.loginToken);
+						commit("setLoginToken", response.data.loginToken);
 						commit("setLoggedIn", true);
 						cookies.set("loginToken", response.data.loginToken);
 						cookies.set("userId", response.data.userId);
@@ -124,16 +134,6 @@ export default new Vuex.Store({
 					console.error("no tweets found");
 				});
 		},
-		getFollowsById(userId) {
-			axios
-				.get("/follows", userId)
-				.then((response) => {
-					this.commit("setUserFollows", response.data);
-				})
-				.catch(() => {
-					console.error("no follows found");
-				});
-		},
 		getUserById(userId) {
 			axios
 				.get("/users", userId)
@@ -155,7 +155,7 @@ export default new Vuex.Store({
 			}
 		},
 		authCheck({ dispatch }) {
-			if (cookies.get("loginToken")) {
+			if (cookies.get("loginToken") && cookies.get("userId")) {
 				dispatch("redirect", "/");
 			} else {
 				if (router.currentRoute != "/login") {
@@ -237,6 +237,9 @@ export default new Vuex.Store({
 		},
 		getTweetsArray(state) {
 			return state.tweets;
+		},
+		getFollowsArray(state) {
+			return state.follows;
 		},
 	},
 });

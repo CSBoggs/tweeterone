@@ -130,6 +130,7 @@ export default {
 			rules: [(v) => v.length <= 140 || "Max 140 characters"],
 			editText: "",
 			deletePassword: "",
+			tweets: [],
 		};
 	},
 	methods: {
@@ -147,6 +148,17 @@ export default {
 						this.userInfo.bio = response.data[0].bio;
 						this.userInfo.userId = response.data[0].userId;
 					}
+				})
+				.then(() => {
+					axios
+						.request({
+							url: "/tweets",
+							method: "GET",
+							params: { userId: this.$route.params.userId },
+						})
+						.then((response) => {
+							this.tweets = response.data;
+						});
 				})
 				.catch(() => {
 					console.error("no user found");

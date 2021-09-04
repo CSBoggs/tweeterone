@@ -17,18 +17,22 @@
 			<v-btn type="submit" depressed elevation="2" raised color="primary"
 				>Login</v-btn
 			>
+			<TweeterNav />
 		</form>
-		<TweeterNav />
+		<MainTweetsFlow :tweets="tweets" :key="$store.getters.getLoginToken" />
 	</div>
 </template>
 
 <script>
+import MainTweetsFlow from "../components/MainTweetsFlow.vue";
 import TweeterNav from "../components/TweeterNav.vue";
+import axios from "axios";
 
 export default {
 	name: "Login",
 	components: {
 		TweeterNav,
+		MainTweetsFlow,
 	},
 	methods: {
 		async userLogout() {
@@ -36,9 +40,7 @@ export default {
 			this.$router.push("/login");
 		},
 		submitLogin() {
-			this.$store.dispatch("userLogin", this.userInfo).then(() => {
-				this.$forceUpdate();
-			});
+			this.$store.dispatch("userLogin", this.userInfo);
 		},
 		registerBtn() {
 			this.$router.push("/register");
@@ -53,6 +55,7 @@ export default {
 				username: "",
 				password: "",
 			},
+			tweets: [],
 		};
 	},
 	computed: {
@@ -60,19 +63,33 @@ export default {
 			return this.$store.getters.getLoginToken != "";
 		},
 	},
+	mounted() {
+		axios
+			.request({
+				url: "/tweets",
+				method: "GET",
+				params: { userId: this.$route.params.userId },
+			})
+			.then((response) => {
+				this.tweets = response.data;
+			});
+	},
 };
 </script>
 
 <style scoped>
 div {
 	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-column: 1/2;
 	place-items: center;
 	padding-top: 3.5vh;
 }
 form {
-	display: grid;
 	place-items: center;
-	padding-top: 25vh;
-	width: 60vw;
+	width: 35vw;
+}
+#tweetLayout {
+	grid-column: 2/3;
 }
 </style>

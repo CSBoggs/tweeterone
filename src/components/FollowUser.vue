@@ -2,12 +2,20 @@
 	<div>
 		<button @click.prevent="toggleFollow()">
 			<v-icon
-				v-if="tweetUserId != userId"
+				v-if="tweetUserId != userId && !isFollowed"
 				:class="{ fill: isFollowed }"
 				class="mr-5"
 				large
 			>
 				mdi-account-multiple-plus
+			</v-icon>
+			<v-icon
+				v-else-if="isFollowed"
+				:class="{ fill: isFollowed }"
+				class="mr-5"
+				large
+			>
+				mdi-account-multiple-minus
 			</v-icon>
 		</button>
 	</div>
@@ -21,16 +29,13 @@ export default {
 		tweetUserId: {
 			type: Number,
 		},
-		follows: {
-			type: Array,
-		},
 	},
 	computed: {
 		userId() {
 			return this.$store.getters.getUserId;
 		},
 		isFollowed() {
-			return this.isFollowedBy.includes(parseInt(this.userId));
+			return this.isFollowedByMe.includes(parseInt(this.tweetUserId));
 		},
 	},
 	methods: {
@@ -42,11 +47,8 @@ export default {
 						method: "DELETE",
 						data: {
 							loginToken: this.$store.getters.getLoginToken,
-							followId: this.follows.followId,
+							followId: String(this.tweetUserId),
 						},
-					})
-					.then(() => {
-						this.$emit("refreshLikes");
 					})
 					.then(() => {
 						this.refreshFollows();
@@ -58,30 +60,33 @@ export default {
 						method: "POST",
 						data: {
 							loginToken: this.$store.getters.getLoginToken,
-							followId: this.follows.followId,
+							followId: String(this.tweetUserId),
 						},
 					})
 					.then(() => {
-						this.$emit("refreshLikes");
-					})
-					.then(() => {
-						this.refreshLikes();
+						this.refreshFollows();
 					});
 			}
 		},
 		refreshFollows() {
-			this.$store
-				.dispatch("getFollowsById", this.userId)
+			axios
+				.request({
+					url: "/follows",
+					method: "GET",
+					params: {
+						userId: this.userId,
+					},
+				})
 				.then((response) => {
 					this.follows = response.data;
-					this.isFollowedBy = response.data.map(
+					this.isFollowedByMe = response.data.map(
 						(user) => user.userId
 					);
 				});
 		},
 	},
 	data: () => ({
-		isFollowedBy: [],
+		isFollowedByMe: [],
 		follows: [],
 	}),
 	mounted() {
