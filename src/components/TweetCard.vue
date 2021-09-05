@@ -7,6 +7,7 @@
 			class="mx-auto"
 			color="#26c6da"
 			dark
+			min-width="250"
 			max-width="500"
 		>
 			<v-card-title>
@@ -74,17 +75,17 @@
 					<v-list-item-content>
 						<v-list-item-title>
 							<!-- Username and link to profile -->
-							<FollowUser
-								v-if="!isPreview"
-								:tweetUserId="tweet.userId"
-								@refreshLikes="refreshLikes"
-							/>
 							<router-link :to="'/profile/' + this.tweet.userId">
 								{{ tweet.username }}
 							</router-link>
 						</v-list-item-title>
 					</v-list-item-content>
 					<v-row align="center" justify="end">
+						<FollowUser
+							v-if="!isPreview"
+							:tweetUserId="tweet.userId"
+							@refreshLikes="refreshLikes"
+						/>
 						<!-- Like/unlike logic -->
 						<v-icon
 							v-if="tweet.userId == userId"
@@ -221,6 +222,6 @@ export default {
 
 <style scoped>
 .fill {
-	color: rgb(223, 96, 138);
+	color: #f06292;
 }
 </style>

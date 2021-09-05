@@ -17,7 +17,6 @@
 			<v-btn type="submit" depressed elevation="2" raised color="primary"
 				>Login</v-btn
 			>
-			<TweeterNav />
 		</form>
 		<MainTweetsFlow :tweets="tweets" :key="$store.getters.getLoginToken" />
 	</div>
@@ -25,13 +24,11 @@
 
 <script>
 import MainTweetsFlow from "../components/MainTweetsFlow.vue";
-import TweeterNav from "../components/TweeterNav.vue";
 import axios from "axios";
 
 export default {
 	name: "Login",
 	components: {
-		TweeterNav,
 		MainTweetsFlow,
 	},
 	methods: {
@@ -82,14 +79,15 @@ div {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-column: 1/2;
-	place-items: center;
-	padding-top: 3.5vh;
+	justify-items: center;
 }
 form {
-	place-items: center;
 	width: 35vw;
+	padding-top: 25vh;
 }
 #tweetLayout {
+	display: grid;
 	grid-column: 2/3;
+	place-items: center;
 }
 </style>

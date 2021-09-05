@@ -1,37 +1,76 @@
 <template>
-	<div>
-		<span v-if="isLoggedIn">
-			<v-btn
-				color="secondary"
-				torouter-link
-				:to="'/profile/' + this.$store.getters.getUserId"
-				:v-if="useRoute !== '/profile/' + this.$store.getters.getUserId"
-				>my Profile</v-btn
-			>
-			<v-btn color="secondary" torouter-link to="/" v-if="useRoute != '/'"
-				>Tweets</v-btn
-			>
-			<v-btn @click="userLogout" color="error">Logout</v-btn>
-		</span>
-		<span v-else>
-			<v-btn
-				color="secondary"
-				torouter-link
-				to="/login"
-				v-if="useRoute != '/login'"
-				>Login</v-btn
-			>
-			<v-btn
-				v-if="useRoute != '/register'"
-				@click="registerBtn"
-				color="primary"
-				depressed
-				elevation="2"
-				right
-				>Register</v-btn
-			>
-		</span>
-	</div>
+	<v-list nav dense>
+		<v-list-item-group
+			v-model="group"
+			active-class="deep-blue--text text--accent-4"
+		>
+			<v-list-item v-if="isLoggedIn">
+				<v-list-item-icon>
+					<v-icon>mdi-home</v-icon>
+				</v-list-item-icon>
+				<v-list-item-title>
+					<v-btn color="light-blue lighten-1" torouter-link to="/"
+						>Tweets</v-btn
+					>
+				</v-list-item-title>
+			</v-list-item>
+			<v-list-item v-if="isLoggedIn">
+				<v-list-item-icon>
+					<v-icon>mdi-account</v-icon>
+				</v-list-item-icon>
+				<v-list-item-title>
+					<v-btn
+						color="light-blue lighten-1"
+						torouter-link
+						:to="'/profile/' + this.$store.getters.getUserId"
+						:v-if="
+							useRoute !==
+							'/profile/' + this.$store.getters.getUserId
+						"
+						>my Profile</v-btn
+					>
+				</v-list-item-title>
+			</v-list-item>
+			<v-list-item v-if="isLoggedIn">
+				<v-list-item-icon>
+					<v-icon>mdi-account-arrow-right</v-icon>
+				</v-list-item-icon>
+				<v-list-item-title>
+					<v-btn @click="userLogout" color="error">Logout</v-btn>
+				</v-list-item-title>
+			</v-list-item>
+			<v-list-item v-if="!isLoggedIn">
+				<v-list-item-icon>
+					<v-icon>mdi-account-key</v-icon>
+				</v-list-item-icon>
+				<v-list-item-title>
+					<v-btn
+						color="secondary"
+						torouter-link
+						to="/login"
+						v-if="useRoute != '/login'"
+						>Login</v-btn
+					>
+				</v-list-item-title>
+			</v-list-item>
+			<v-list-item v-if="!isLoggedIn">
+				<v-list-item-icon>
+					<v-icon>mdi-account-details</v-icon>
+				</v-list-item-icon>
+				<v-list-item-title>
+					<v-btn
+						v-if="useRoute != '/register'"
+						@click="registerBtn"
+						color="primary"
+						depressed
+						elevation="2"
+						right
+						>Register</v-btn
+					>
+				</v-list-item-title>
+			</v-list-item>
+		</v-list-item-group>
+	</v-list>
 </template>
 
 <script>
@@ -57,12 +96,13 @@ export default {
 			this.$router.push("/register");
 		},
 	},
+	data() {
+		return {
+			drawer: false,
+			group: null,
+		};
+	},
 };
 </script>
 
-<style scoped>
-div {
-	display: grid;
-	place-items: center;
-}
-</style>
+<style scoped></style>

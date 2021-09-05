@@ -1,6 +1,5 @@
 <template>
 	<div class="register">
-		<TweeterNav />
 		<v-form v-model="valid">
 			<v-container>
 				<v-row>
@@ -45,7 +44,7 @@
 							<template v-slot:activator="{ on, attrs }">
 								<v-text-field
 									v-model="userReg.birthdate"
-									label="Birthday date"
+									label="Birthdate"
 									prepend-icon="mdi-calendar"
 									readonly
 									v-bind="attrs"
@@ -85,7 +84,6 @@
 </template>
 
 <script>
-import TweeterNav from "../components/TweeterNav.vue";
 export default {
 	name: "Register",
 	data: () => {
@@ -116,9 +114,6 @@ export default {
 		getUsers() {
 			this.$store.dispatch("getUsers");
 		},
-	},
-	components: {
-		TweeterNav,
 	},
 };
 </script>

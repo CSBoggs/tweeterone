@@ -1,13 +1,38 @@
 <template>
 	<v-app>
 		<v-main>
-			<router-view :key="$route.fullPath" />
+			<div>
+				<v-card class="mx-auto overflow-hidden" min-height="100vh">
+					<v-app-bar color="cyan darken-1" dark>
+						<v-app-bar-nav-icon
+							@click="drawer = true"
+						></v-app-bar-nav-icon>
+
+						<v-toolbar-title>Tweeter</v-toolbar-title>
+					</v-app-bar>
+
+					<v-navigation-drawer v-model="drawer" absolute temporary>
+						<TweeterNav />
+					</v-navigation-drawer>
+					<router-view :key="$route.fullPath" />
+				</v-card>
+			</div>
 		</v-main>
 	</v-app>
 </template>
 
 <script>
+import TweeterNav from "./components/TweeterNav.vue";
 export default {
 	name: "App",
+	components: {
+		TweeterNav,
+	},
+	data() {
+		return {
+			drawer: false,
+			group: null,
+		};
+	},
 };
 </script>

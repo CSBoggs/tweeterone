@@ -2,7 +2,7 @@
 	<div>
 		<v-expansion-panels>
 			<v-expansion-panel>
-				<v-expansion-panel-header>
+				<v-expansion-panel-header color="cyan darken-3">
 					<v-row align="center" justify="start">
 						<v-icon class="mr-2" medium>
 							mdi-comment-text-multiple
@@ -13,7 +13,7 @@
 					</v-row>
 				</v-expansion-panel-header>
 
-				<v-expansion-panel-content>
+				<v-expansion-panel-content color="cyan darken-3">
 					<CreateComment
 						:tweetId="tweetId"
 						@refreshComments="fetchTweetComments"

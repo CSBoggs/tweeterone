@@ -6,16 +6,6 @@ import router from "../router";
 
 axios.defaults.headers.common["X-Api-Key"] = process.env.VUE_APP_API_KEY;
 axios.defaults.baseURL = "https://tweeterest.ml/api/";
-// axios.interceptors.response.use(
-// 	function (response) {
-// 		return response;
-// 	},
-// 	function (error) {
-// 		cookies.remove("loginToken");
-// 		this.$store.commit("setLoggedOut");
-// 		return Promise.reject(error);
-// 	}
-// );
 
 Vue.use(Vuex);
 

@@ -1,10 +1,10 @@
 <template>
 	<div>
 		<v-expansion-panel>
-			<v-expansion-panel-header color="#26c6da">{{
+			<v-expansion-panel-header color="cyan darken-1">{{
 				comment.username + " says " + commentPreview
 			}}</v-expansion-panel-header>
-			<v-expansion-panel-content color="#26c6da">
+			<v-expansion-panel-content color="cyan darken-1">
 				<v-container>
 					<v-row justify="center">"{{ comment.content }}"</v-row>
 
