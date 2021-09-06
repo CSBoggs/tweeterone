@@ -1,7 +1,9 @@
 <template>
 	<div>
 		<CreateTweet />
-		<span class="text-h3 font-weight-light ml-12">All users tweets:</span>
+		<span class="text-h3 font-weight-light ml-16 hidden-sm-and-down"
+			>All users tweets:</span
+		>
 		<MainTweetsFlow :tweets="tweets" :key="$store.getters.getLoginToken" />
 	</div>
 </template>

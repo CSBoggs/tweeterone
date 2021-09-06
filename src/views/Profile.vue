@@ -1,7 +1,7 @@
 <template>
 	<div id="mainDiv">
 		<div id="profileContent">
-			<span class="text-h3 font-weight-light pb-10"
+			<span class="text-h3 font-weight-light pb-10 hidden-sm-and-down"
 				>{{ userInfo.username }}'s profile:</span
 			>
 			<v-simple-table>
@@ -120,7 +120,13 @@
 				</v-chip>
 			</button>
 		</div>
+
 		<MainTweetsFlow :tweets="tweets" :key="$store.getters.getLoginToken" />
+		<span
+			id="userTweetTitle"
+			class="text-h3 font-weight-light hidden-sm-and-down"
+			>{{ userInfo.username }}'s tweets:</span
+		>
 	</div>
 </template>
 
@@ -212,32 +218,48 @@ export default {
 </script>
 
 <style scoped>
-#mainDiv {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 1fr;
-	align-items: start;
-}
-#tweeterNav {
-	display: grid;
-	grid-column: 1/3;
-	grid-row: 1;
-}
-
 #profileContent {
 	display: grid;
-	grid-column: 1/2;
-	grid-row: 2;
+
+	width: 90vw;
 	padding-top: 10vh;
 	padding-left: 5vw;
 }
-#tweetLayout {
-	display: grid;
-	grid-column: 2/3;
-	grid-row: 2;
-}
-
-.ma-2 {
-	width: 100px;
+@media screen and (min-width: 1000px) {
+	#mainDiv {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr;
+		align-items: start;
+	}
+	#tweeterNav {
+		display: grid;
+		grid-column: 1/3;
+		grid-row: 1;
+	}
+	#userTweetTitle {
+		display: grid;
+		grid-column: 2/3;
+		grid-row: 2;
+		padding-bottom: 4vh;
+		padding-top: 10vh;
+	}
+	#profileContent {
+		display: grid;
+		grid-column: 1/2;
+		grid-row: 2;
+		max-width: 35vw;
+		padding-top: 10vh;
+		padding-left: 5vw;
+	}
+	#tweetLayout {
+		display: grid;
+		grid-column: 2/3;
+		grid-row: 2;
+		padding-top: 20vh;
+	}
+	.ma-2 {
+		width: 100px;
+	}
 }
 </style>

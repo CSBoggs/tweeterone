@@ -1,7 +1,8 @@
 <template>
 	<div>
-		<v-sheet class="mx-auto" elevation="8" width="85vw" height="80vh">
-			<span class="text-h4 font-weight-light pb-10 ml-10"
+		<v-sheet class="mx-auto" elevation="8">
+			<span
+				class="text-h3 font-weight-light pb-15 ml-10 hidden-sm-and-down"
 				>Discover other users tweets:</span
 			>
 			<v-slide-group
@@ -14,7 +15,7 @@
 				<v-slide-item v-for="(tweet, id) in tweets" :key="id">
 					<TweetCard :tweet="tweet" class="mx-2">
 						<v-row
-							class="fill-height"
+							class="fill-width"
 							align="center"
 							justify="center"
 						></v-row>
@@ -67,9 +68,22 @@ export default {
 <style scoped>
 .mx-auto {
 	padding-top: 20vh;
-	padding-bottom: 20vh;
+	width: 100vw;
+	height: 100vh;
 }
 .v-slide-group__content {
 	gap: 1vw;
+}
+
+@media screen and (min-width: 1000px) {
+	.mx-auto {
+		padding-top: 20vh;
+		padding-bottom: 20vh;
+		width: 90vw;
+		max-height: 85vh;
+	}
+	.v-slide-group__content {
+		gap: 1vw;
+	}
 }
 </style>

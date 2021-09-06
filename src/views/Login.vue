@@ -75,20 +75,28 @@ export default {
 </script>
 
 <style scoped>
-div {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-column: 1/2;
-	justify-items: center;
-}
 form {
-	width: 35vw;
-	padding-top: 25vh;
+	width: 90vw;
 	padding-left: 10vw;
+	padding-top: 3.5vh;
 }
-#tweetLayout {
-	display: grid;
-	grid-column: 2/3;
-	place-items: center;
+
+@media screen and (min-width: 1000px) {
+	div {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-column: 1/2;
+		justify-items: center;
+	}
+	form {
+		width: 35vw;
+		padding-top: 25vh;
+		padding-left: 10vw;
+	}
+	#tweetLayout {
+		display: grid;
+		grid-column: 2/3;
+		place-items: center;
+	}
 }
 </style>

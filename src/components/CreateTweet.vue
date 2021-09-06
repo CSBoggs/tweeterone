@@ -57,6 +57,12 @@ export default {
 
 <style scoped>
 #createTweet {
-	width: 20vw;
+	width: 90vw;
+}
+
+@media screen and (min-width: 1000px) {
+	#createTweet {
+		width: 20vw;
+	}
 }
 </style>
