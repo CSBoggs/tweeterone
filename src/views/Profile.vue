@@ -1,6 +1,9 @@
 <template>
 	<div id="mainDiv">
 		<div id="profileContent">
+			<span class="text-h3 font-weight-light pb-10"
+				>{{ userInfo.username }}'s profile:</span
+			>
 			<v-simple-table>
 				<template v-slot:default>
 					<tbody>

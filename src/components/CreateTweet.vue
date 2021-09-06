@@ -57,6 +57,6 @@ export default {
 
 <style scoped>
 #createTweet {
-	width: 45vw;
+	width: 20vw;
 }
 </style>

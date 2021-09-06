@@ -23,9 +23,4 @@ export default {
 };
 </script>
 
-<style scoped>
-tweeterNav {
-	display: flex;
-	flex-direction: row-reverse;
-}
-</style>
+<style scoped></style>

@@ -14,13 +14,27 @@
 					>
 				</v-list-item-title>
 			</v-list-item>
+			<v-list-item>
+				<v-list-item-icon>
+					<v-icon>mdi-animation</v-icon>
+				</v-list-item-icon>
+				<v-list-item-title>
+					<v-btn
+						color="light-blue lighten-1"
+						torouter-link
+						to="/discover"
+						v-if="useRoute != '/discover'"
+						>Discover</v-btn
+					>
+				</v-list-item-title>
+			</v-list-item>
 			<v-list-item v-if="isLoggedIn">
 				<v-list-item-icon>
 					<v-icon>mdi-account</v-icon>
 				</v-list-item-icon>
 				<v-list-item-title>
 					<v-btn
-						color="light-blue lighten-1"
+						color="primary lighten-1"
 						torouter-link
 						:to="'/profile/' + this.$store.getters.getUserId"
 						:v-if="
@@ -39,20 +53,7 @@
 					<v-btn @click="userLogout" color="error">Logout</v-btn>
 				</v-list-item-title>
 			</v-list-item>
-			<v-list-item v-if="!isLoggedIn">
-				<v-list-item-icon>
-					<v-icon>mdi-animation</v-icon>
-				</v-list-item-icon>
-				<v-list-item-title>
-					<v-btn
-						color="primary lighten-1"
-						torouter-link
-						to="/discover"
-						v-if="useRoute != '/discover'"
-						>Discover</v-btn
-					>
-				</v-list-item-title>
-			</v-list-item>
+
 			<v-list-item v-if="!isLoggedIn">
 				<v-list-item-icon>
 					<v-icon>mdi-account-key</v-icon>

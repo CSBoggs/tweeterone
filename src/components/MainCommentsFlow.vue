@@ -7,8 +7,8 @@
 						<v-icon class="mr-2" medium>
 							mdi-comment-text-multiple
 						</v-icon>
-						<v-span class="mr-2">
-							Comments: ({{ comments.length }})</v-span
+						<span class="mr-2">
+							Comments: ({{ comments.length }})</span
 						>
 					</v-row>
 				</v-expansion-panel-header>
@@ -58,6 +58,7 @@ export default {
 	data: () => {
 		return {
 			comments: [],
+			panel: [],
 		};
 	},
 	methods: {

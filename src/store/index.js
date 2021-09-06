@@ -53,7 +53,7 @@ export default new Vuex.Store({
 						commit("setLoggedIn", true);
 						cookies.set("loginToken", response.data.loginToken);
 						cookies.set("userId", response.data.userId);
-						// location.reload();
+						location.reload();
 					} else {
 						alert(
 							"username and/or password are invalid, please try again"
@@ -147,7 +147,7 @@ export default new Vuex.Store({
 		},
 		authCheck({ dispatch }) {
 			if (cookies.get("loginToken") && cookies.get("userId")) {
-				dispatch("redirect", "/");
+				dispatch("redirect", "/").catch(() => {});
 			} else {
 				if (router.currentRoute != "/login") {
 					dispatch("userLogout");

@@ -1,12 +1,14 @@
 <template>
 	<div>
-		<v-sheet class="mx-auto" elevation="8" width="85vw" height="60vh">
+		<v-sheet class="mx-auto" elevation="8" width="85vw" height="80vh">
+			<span class="text-h4 font-weight-light pb-10 ml-10"
+				>Discover other users tweets:</span
+			>
 			<v-slide-group
 				v-model="model"
 				id="cardStyle"
 				class="pa-4"
 				show-arrows
-				multiple
 				draggable="true"
 			>
 				<v-slide-item v-for="(tweet, id) in tweets" :key="id">
@@ -24,25 +26,40 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import axios from "axios";
 import TweetCard from "../components/TweetCard.vue";
-
+import cookies from "vue-cookies";
 export default {
 	components: {
 		TweetCard,
 	},
 	name: "Discover",
 	mounted() {
-		let userId = this.$store.getters.getUserId;
-		this.$store.dispatch("getTweetsById", userId);
+		this.getFilterTweets();
+	},
+	methods: {
+		getFilterTweets() {
+			axios
+				.request({
+					url: "/tweets",
+					method: "GET",
+				})
+				.then((response) => {
+					this.tweets = response.data.filter(
+						(tweet) =>
+							tweet.userId != parseInt(cookies.get("userId"))
+					);
+				});
+		},
 	},
 	computed: {
-		...mapState({
-			tweets: (state) => state.tweets,
-		}),
+		userId() {
+			return this.$store.getters.getUserId;
+		},
 	},
 	data: () => ({
 		model: null,
+		tweets: [],
 	}),
 };
 </script>
