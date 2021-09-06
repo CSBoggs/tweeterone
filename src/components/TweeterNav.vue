@@ -3,7 +3,7 @@
 	<v-list nav dense>
 		<v-list-item-group
 			v-model="group"
-			active-class="deep-blue--text text--accent-4"
+			active-class="deep-green--text text--accent-9"
 		>
 			<!-- show Tweets page only if logged in and link to root -->
 			<v-list-item v-show="isLoggedIn">
@@ -38,7 +38,7 @@
 				</v-list-item-icon>
 				<v-list-item-title>
 					<v-btn
-						color="primary lighten-1"
+						color="light-blue lighten-1"
 						torouter-link
 						:to="'/profile/' + this.$store.getters.getUserId"
 						:v-if="
@@ -67,7 +67,7 @@
 				</v-list-item-icon>
 				<v-list-item-title>
 					<v-btn
-						color="primary lighten-1"
+						color="light-blue lighten-1"
 						torouter-link
 						to="/login"
 						v-if="useRoute != '/login'"
@@ -84,7 +84,7 @@
 					<v-btn
 						v-show="useRoute != '/register'"
 						@click="registerBtn"
-						color="primary"
+						color="light-blue lighten-1"
 						depressed
 						elevation="2"
 						right
