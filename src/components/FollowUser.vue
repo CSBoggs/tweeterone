@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<!-- shows follow icon and toggle only if not the logged in user and styles if user is already followed  -->
 		<button @click.prevent="toggleFollow()">
 			<v-icon
 				v-if="tweetUserId != userId && !isFollowed"
@@ -34,6 +35,7 @@ export default {
 		userId() {
 			return this.$store.getters.getUserId;
 		},
+		// finds ids in followed aray that matches tweet's user to facilitate toggle
 		isFollowed() {
 			return this.isFollowedByMe.includes(parseInt(this.tweetUserId));
 		},
@@ -68,6 +70,7 @@ export default {
 					});
 			}
 		},
+		// initializes follows array with mapped response of only user ids
 		refreshFollows() {
 			axios
 				.request({

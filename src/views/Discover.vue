@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<!-- Vuetify Slide sheets component to browse other users tweets -->
 		<v-sheet class="mx-auto" elevation="8">
 			<span
 				class="text-h3 font-weight-light pb-15 ml-10 hidden-sm-and-down"
@@ -39,6 +40,7 @@ export default {
 		this.getFilterTweets();
 	},
 	methods: {
+		// gets all tweets and filters them to omit logged in users own tweets
 		getFilterTweets() {
 			axios
 				.request({

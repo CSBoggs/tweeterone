@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<!-- simple text form and submit button to post a new tweet -->
 		<v-container id="createTweet">
 			<v-form ref="form">
 				<v-row>

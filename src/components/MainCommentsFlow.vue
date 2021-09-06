@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<!-- remainder of vuetify expansion pannels to hook onto tweet card -->
 		<v-expansion-panels>
 			<v-expansion-panel>
 				<v-expansion-panel-header color="cyan darken-3">
@@ -7,6 +8,7 @@
 						<v-icon class="mr-2" medium>
 							mdi-comment-text-multiple
 						</v-icon>
+						<!-- total comments counter -->
 						<span class="mr-2">
 							Comments: ({{ comments.length }})</span
 						>
@@ -14,6 +16,7 @@
 				</v-expansion-panel-header>
 
 				<v-expansion-panel-content color="cyan darken-3">
+					<!-- sub component to create comment with text box input -->
 					<CreateComment
 						:tweetId="tweetId"
 						@refreshComments="fetchTweetComments"
@@ -25,6 +28,7 @@
 						id="individualComment"
 					>
 						<div id="comments">
+							<!-- subcomponent to loop and draw comments as sub expansion panels -->
 							<CommentCard
 								v-for="(comment, id) in comments"
 								:key="id"

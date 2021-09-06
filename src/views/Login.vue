@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<!-- Form to recieve and submit user password and username -->
 		<form @submit.prevent="submitLogin()">
 			<label for="username">Username</label>
 			<v-text-field
@@ -22,6 +23,7 @@
 				>Login</v-btn
 			>
 		</form>
+		<!-- Preview only tweets filtered to only show first 4 on page -->
 		<MainTweetsFlow :tweets="tweets" :key="$store.getters.getLoginToken" />
 	</div>
 </template>
@@ -61,6 +63,7 @@ export default {
 		},
 	},
 	mounted() {
+		// get and splice tweet array to first 4 tweets on preview
 		axios
 			.request({
 				url: "/tweets",

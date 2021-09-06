@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<!-- buttons to toggle overlay to edit user registration value if it matches current user -->
 		<v-btn
 			v-if="userInfo.userId == userId"
 			color="primary"
@@ -15,6 +16,7 @@
 				<v-icon dark>mdi-close</v-icon>
 			</v-btn>
 			<v-container fluid>
+				<!-- dynamic labels for parent component -->
 				<v-textarea
 					counter
 					:rules="rules"

@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<!-- buttons to edit and delete users own comments -->
 		<v-btn
 			v-if="comment.userId == userId"
 			@click.prevent="deleteComment()"
@@ -20,7 +21,7 @@
 		>
 			<v-icon light> mdi-pencil </v-icon>
 		</v-btn>
-
+		<!-- Vuetify overlay to edit comment and store in vmodel -->
 		<v-overlay :value="overlay" :opacity="opacity" :z-index="zIndex">
 			<v-btn icon @click="overlay = false">
 				<v-icon dark>mdi-close</v-icon>
@@ -28,7 +29,6 @@
 			<v-container fluid>
 				<v-textarea
 					counter
-					outlined
 					:rules="rules"
 					cols="60"
 					rows="4"

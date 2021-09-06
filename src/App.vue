@@ -2,6 +2,7 @@
 	<v-app>
 		<v-main>
 			<div>
+				<!-- Vuetify App Bar component, remainder in TweeterNav component -->
 				<v-card class="mx-auto overflow-hidden" min-height="100vh">
 					<v-app-bar
 						color="cyan"
@@ -16,7 +17,6 @@
 						<v-icon medium right class="mx-2"> mdi-twitter </v-icon>
 						<v-toolbar-title>Tweeter</v-toolbar-title>
 					</v-app-bar>
-
 					<v-navigation-drawer v-model="drawer" absolute temporary>
 						<TweeterNav />
 					</v-navigation-drawer>

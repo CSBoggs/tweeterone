@@ -1,9 +1,11 @@
 <template>
 	<div id="mainDiv">
 		<div id="profileContent">
+			<!-- show and hide profile user title -->
 			<span class="text-h3 font-weight-light pb-10 hidden-sm-and-down"
 				>{{ userInfo.username }}'s profile:</span
 			>
+			<!-- data table to hold and populate user registration info -->
 			<v-simple-table>
 				<template v-slot:default>
 					<tbody>
@@ -13,6 +15,7 @@
 								{{ userInfo.username }}
 							</td>
 							<td>
+								<!-- toggle hidden to toggle ability to edit user registration info with proper ownership -->
 								<EditProfile
 									v-if="isEditable"
 									@profileUpdated="refreshProfile()"
@@ -28,6 +31,7 @@
 								{{ userInfo.birthdate }}
 							</td>
 							<td>
+								<!-- toggle hidden to toggle ability to edit user registration info with proper ownership -->
 								<EditProfile
 									v-if="isEditable"
 									@profileUpdated="refreshProfile()"
@@ -41,6 +45,7 @@
 							<td>Email:</td>
 							<td>{{ userInfo.email }}</td>
 							<td>
+								<!-- toggle hidden to toggle ability to edit user registration info with proper ownership -->
 								<EditProfile
 									v-if="isEditable"
 									@profileUpdated="refreshProfile()"
@@ -54,6 +59,7 @@
 							<td>Biography:</td>
 							<td>{{ userInfo.bio }}</td>
 							<td>
+								<!-- toggle hidden to toggle ability to edit user registration info with proper ownership -->
 								<EditProfile
 									v-if="isEditable"
 									@profileUpdated="refreshProfile()"
@@ -64,6 +70,7 @@
 							</td>
 						</tr>
 						<tr>
+							<!-- toggle ability to delete account with ownership, overlay to confirm user password before deletion -->
 							<td v-if="userInfo.userId == userId && isEditable">
 								Delete my profile:
 							</td>
@@ -110,6 +117,7 @@
 					</tbody>
 				</template>
 			</v-simple-table>
+			<!-- chip button to toggle ability to edit profile, only shown with proper ownership -->
 			<button
 				@click.prevent="toggleEdit()"
 				v-if="userInfo.userId == userId"
@@ -120,8 +128,9 @@
 				</v-chip>
 			</button>
 		</div>
-
+		<!-- Component to draw users own tweets with by user ID API call -->
 		<MainTweetsFlow :tweets="tweets" :key="$store.getters.getLoginToken" />
+		<!-- show and hide profile tweet title -->
 		<span
 			id="userTweetTitle"
 			class="text-h3 font-weight-light hidden-sm-and-down"
@@ -166,6 +175,7 @@ export default {
 		};
 	},
 	methods: {
+		// call, set, and commit user registration info to populate table
 		refreshProfile() {
 			axios
 				.get("/users", {

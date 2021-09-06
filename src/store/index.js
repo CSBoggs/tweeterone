@@ -145,6 +145,7 @@ export default new Vuex.Store({
 				router.push(route);
 			}
 		},
+		// destructured parameter to accept dispatch
 		authCheck({ dispatch }) {
 			if (cookies.get("loginToken") && cookies.get("userId")) {
 				dispatch("redirect", "/").catch(() => {});
@@ -154,6 +155,7 @@ export default new Vuex.Store({
 				}
 			}
 		},
+		// destructured to get getters and payload into post object
 		createTweet({ getters }, content) {
 			axios
 				.post("/tweets", {
@@ -162,6 +164,7 @@ export default new Vuex.Store({
 				})
 				.catch((response) => console.log(response));
 		},
+		// destructured to get getters and payload into post object
 		removeTweet({ getters }, tweetId) {
 			axios.delete("/tweets", {
 				data: {
@@ -170,6 +173,7 @@ export default new Vuex.Store({
 				},
 			});
 		},
+		// destructured to get getters and payload into post object
 		removeUser({ getters }, deletePassword) {
 			axios.delete("/users", {
 				data: {
@@ -178,6 +182,7 @@ export default new Vuex.Store({
 				},
 			});
 		},
+		// destructured to get getters and payload into post object
 		editTweet({ getters }, payload) {
 			axios.patch("/tweets", {
 				loginToken: getters.getLoginToken,
@@ -185,16 +190,19 @@ export default new Vuex.Store({
 				content: payload.editText,
 			});
 		},
+		// destructured to get getters and payload into post object
 		editInfo({ getters }, payload) {
 			axios.patch("/users", {
 				loginToken: getters.getLoginToken,
 				[payload.label]: payload.newValue,
 			});
 		},
+		// destructured to get getters and payload into post object
 		refreshTweets({ getters, dispatch }) {
 			let userId = getters.getUserId;
 			dispatch("getTweetsById", userId);
 		},
+		// destructured to get getters and payload into post object
 		likeTweet({ getters }, payload) {
 			axios.request({
 				url: "/tweet-likes",
@@ -205,6 +213,7 @@ export default new Vuex.Store({
 				},
 			});
 		},
+		// destructured to get getters and payload into post object
 		unlikeTweet({ getters }, payload) {
 			axios.request({
 				url: "/tweet-likes",

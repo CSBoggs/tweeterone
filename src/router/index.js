@@ -21,6 +21,7 @@ const routes = [
 		component: () => import("../views/Login.vue"),
 	},
 	{
+		// dynamic route matching for user profile
 		path: "/profile/:userId",
 		name: "Profile",
 		component: () => import("../views/Profile.vue"),

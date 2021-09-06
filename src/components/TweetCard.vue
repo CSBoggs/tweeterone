@@ -84,6 +84,7 @@
 							</router-link>
 						</v-list-item-title>
 					</v-list-item-content>
+					<!-- subcomponent to listen for follow changes and refresh tweets -->
 					<v-row align="center" justify="end">
 						<FollowUser
 							v-if="!isPreview"

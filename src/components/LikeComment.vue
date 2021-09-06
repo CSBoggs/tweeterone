@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<!-- toggles and styles like heart icon, styles users own as outline so you cannot like your own -->
 		<v-icon
 			v-if="comment.userId == userId"
 			class="mr-1"

@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<!-- remainder of Vuetify component to create expansion panels on eacth tweet for existing comments -->
 		<v-expansion-panel>
 			<v-expansion-panel-header color="cyan darken-1">{{
 				comment.username + " says " + commentPreview
@@ -7,7 +8,7 @@
 			<v-expansion-panel-content color="cyan darken-1">
 				<v-container>
 					<v-row justify="center">"{{ comment.content }}"</v-row>
-
+					<!-- subcomponent calls to refresh after and edited and liked comment -->
 					<v-row justify="space-between">
 						<EditComment
 							:comment="comment"

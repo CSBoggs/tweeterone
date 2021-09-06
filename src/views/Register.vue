@@ -1,5 +1,6 @@
 <template>
 	<div class="register">
+		<!-- Form to register user information -->
 		<v-form v-model="valid">
 			<v-container>
 				<v-row>
@@ -39,7 +40,7 @@
 							type="text"
 							v-model="userReg.bio"
 						/>
-
+						<!-- Vuetify component for selecting birthdate -->
 						<label for="birthdate">Birthdate</label>
 						<v-menu
 							ref="menu"
@@ -77,9 +78,9 @@
 								@change="save"
 							></v-date-picker>
 						</v-menu>
-
+						<!-- Button to submit form information using model binds -->
 						<v-btn
-							@click="userRegistration()"
+							@click.prevent="userRegistration()"
 							depressed
 							elevation="2"
 							raised

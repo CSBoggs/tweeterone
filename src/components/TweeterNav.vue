@@ -1,9 +1,11 @@
 <template>
+	<!-- remainder of Vuetify component for navigation app bar -->
 	<v-list nav dense>
 		<v-list-item-group
 			v-model="group"
 			active-class="deep-blue--text text--accent-4"
 		>
+			<!-- show Tweets page only if logged in and link to root -->
 			<v-list-item v-show="isLoggedIn">
 				<v-list-item-icon>
 					<v-icon>mdi-home</v-icon>
@@ -14,6 +16,7 @@
 					>
 				</v-list-item-title>
 			</v-list-item>
+			<!-- show discover page and link to same -->
 			<v-list-item>
 				<v-list-item-icon>
 					<v-icon>mdi-animation</v-icon>
@@ -28,6 +31,7 @@
 					>
 				</v-list-item-title>
 			</v-list-item>
+			<!-- show user profile page only if logged in and link to same via string concatenation -->
 			<v-list-item v-show="isLoggedIn">
 				<v-list-item-icon>
 					<v-icon>mdi-account</v-icon>
@@ -45,6 +49,7 @@
 					>
 				</v-list-item-title>
 			</v-list-item>
+			<!-- show logout button only if logged in and redirects to login-->
 			<v-list-item v-show="isLoggedIn">
 				<v-list-item-icon>
 					<v-icon>mdi-account-arrow-right</v-icon>
@@ -55,7 +60,7 @@
 					>
 				</v-list-item-title>
 			</v-list-item>
-
+			<!-- show Login page only if not logged in and not currently on login page -->
 			<v-list-item v-show="!isLoggedIn">
 				<v-list-item-icon>
 					<v-icon>mdi-account-key</v-icon>
@@ -70,6 +75,7 @@
 					>
 				</v-list-item-title>
 			</v-list-item>
+			<!-- show Registration link if not logged in -->
 			<v-list-item v-show="!isLoggedIn">
 				<v-list-item-icon>
 					<v-icon>mdi-account-details</v-icon>
