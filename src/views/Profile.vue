@@ -242,21 +242,21 @@ export default {
 		grid-column: 2/3;
 		grid-row: 2;
 		padding-bottom: 4vh;
-		padding-top: 10vh;
+		padding-top: 15vh;
 	}
 	#profileContent {
 		display: grid;
 		grid-column: 1/2;
 		grid-row: 2;
 		max-width: 35vw;
-		padding-top: 10vh;
+		padding-top: 15vh;
 		padding-left: 5vw;
 	}
 	#tweetLayout {
 		display: grid;
 		grid-column: 2/3;
 		grid-row: 2;
-		padding-top: 20vh;
+		padding-top: 25vh;
 	}
 	.ma-2 {
 		width: 100px;

@@ -2,11 +2,11 @@
 	<div>
 		<!-- Vuetify Card Component -->
 		<v-card
-			elevation="5"
+			elevation="9"
 			shaped
+			dark
 			class="mx-auto"
 			color="#26c6da"
-			dark
 			min-width="400"
 			max-width="500"
 		>

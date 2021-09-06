@@ -3,7 +3,7 @@
 		<v-sheet class="mx-auto" elevation="8">
 			<span
 				class="text-h3 font-weight-light pb-15 ml-10 hidden-sm-and-down"
-				>Discover other users tweets:</span
+				>Discover our users tweets:</span
 			>
 			<v-slide-group
 				v-model="model"

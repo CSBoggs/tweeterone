@@ -6,6 +6,8 @@
 					<v-col cols="12" md="4">
 						<label for="email">Email</label>
 						<v-text-field
+							outlined
+							solo
 							name="email"
 							type="text"
 							v-model="userReg.email"
@@ -13,6 +15,8 @@
 
 						<label for="username">Username</label>
 						<v-text-field
+							outlined
+							solo
 							name="username"
 							type="text"
 							v-model="userReg.username"
@@ -20,6 +24,8 @@
 
 						<label for="password">Password</label>
 						<v-text-field
+							outlined
+							solo
 							name="password"
 							type="password"
 							v-model="userReg.password"
@@ -27,6 +33,8 @@
 
 						<label for="biography">Biography</label>
 						<v-text-field
+							outlined
+							solo
 							name="biography"
 							type="text"
 							v-model="userReg.bio"
@@ -43,6 +51,8 @@
 						>
 							<template v-slot:activator="{ on, attrs }">
 								<v-text-field
+									outlined
+									solo
 									v-model="userReg.birthdate"
 									label="Birthdate"
 									prepend-icon="mdi-calendar"
@@ -122,6 +132,6 @@ export default {
 form {
 	display: grid;
 	place-items: center;
-	padding-top: 5vh;
+	padding-top: 15vh;
 }
 </style>

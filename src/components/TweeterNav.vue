@@ -4,7 +4,7 @@
 			v-model="group"
 			active-class="deep-blue--text text--accent-4"
 		>
-			<v-list-item v-if="isLoggedIn">
+			<v-list-item v-show="isLoggedIn">
 				<v-list-item-icon>
 					<v-icon>mdi-home</v-icon>
 				</v-list-item-icon>
@@ -28,7 +28,7 @@
 					>
 				</v-list-item-title>
 			</v-list-item>
-			<v-list-item v-if="isLoggedIn">
+			<v-list-item v-show="isLoggedIn">
 				<v-list-item-icon>
 					<v-icon>mdi-account</v-icon>
 				</v-list-item-icon>
@@ -45,16 +45,18 @@
 					>
 				</v-list-item-title>
 			</v-list-item>
-			<v-list-item v-if="isLoggedIn">
+			<v-list-item v-show="isLoggedIn">
 				<v-list-item-icon>
 					<v-icon>mdi-account-arrow-right</v-icon>
 				</v-list-item-icon>
 				<v-list-item-title>
-					<v-btn @click="userLogout" color="error">Logout</v-btn>
+					<v-btn @click.prevent="userLogout" color="error"
+						>Logout</v-btn
+					>
 				</v-list-item-title>
 			</v-list-item>
 
-			<v-list-item v-if="!isLoggedIn">
+			<v-list-item v-show="!isLoggedIn">
 				<v-list-item-icon>
 					<v-icon>mdi-account-key</v-icon>
 				</v-list-item-icon>
@@ -68,13 +70,13 @@
 					>
 				</v-list-item-title>
 			</v-list-item>
-			<v-list-item v-if="!isLoggedIn">
+			<v-list-item v-show="!isLoggedIn">
 				<v-list-item-icon>
 					<v-icon>mdi-account-details</v-icon>
 				</v-list-item-icon>
 				<v-list-item-title>
 					<v-btn
-						v-if="useRoute != '/register'"
+						v-show="useRoute != '/register'"
 						@click="registerBtn"
 						color="primary"
 						depressed
@@ -104,17 +106,20 @@ export default {
 	methods: {
 		async userLogout() {
 			await this.$store.dispatch("userLogout");
-			this.$router.push("/login");
+			this.refreshStatus();
 		},
 		registerBtn() {
-			console.log(this.useRoute);
 			this.$router.push("/register");
+		},
+		refreshStatus() {
+			location.reload();
 		},
 	},
 	data() {
 		return {
 			drawer: false,
 			group: null,
+			loggedIn: "",
 		};
 	},
 };

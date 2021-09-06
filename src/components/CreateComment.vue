@@ -3,6 +3,7 @@
 		<v-container>
 			<v-form ref="form">
 				<v-text-field
+					outlined
 					v-model="commentContent"
 					:counter="max"
 					:rules="rules"

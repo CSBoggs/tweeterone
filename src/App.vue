@@ -3,7 +3,13 @@
 		<v-main>
 			<div>
 				<v-card class="mx-auto overflow-hidden" min-height="100vh">
-					<v-app-bar color="cyan darken-1" dark>
+					<v-app-bar
+						color="cyan"
+						dark
+						shaped="false"
+						fixed
+						collapse-on-scroll
+					>
 						<v-app-bar-nav-icon
 							@click="drawer = true"
 						></v-app-bar-nav-icon>

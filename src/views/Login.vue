@@ -7,12 +7,16 @@
 				max
 				type="text"
 				v-model="userInfo.username"
+				outlined
+				solo
 			/>
 			<label for="password">Password</label>
 			<v-text-field
 				name="password"
 				type="password"
 				v-model="userInfo.password"
+				outlined
+				solo
 			/>
 			<v-btn type="submit" depressed elevation="2" raised color="primary"
 				>Login</v-btn
@@ -32,10 +36,6 @@ export default {
 		MainTweetsFlow,
 	},
 	methods: {
-		async userLogout() {
-			await this.$store.dispatch("userLogout");
-			this.$router.push("/login");
-		},
 		submitLogin() {
 			this.$store.dispatch("userLogin", this.userInfo);
 		},
@@ -78,7 +78,7 @@ export default {
 form {
 	width: 90vw;
 	padding-left: 10vw;
-	padding-top: 3.5vh;
+	padding-top: 12vh;
 }
 
 @media screen and (min-width: 1000px) {
@@ -97,6 +97,7 @@ form {
 		display: grid;
 		grid-column: 2/3;
 		place-items: center;
+		padding-top: 15vh;
 	}
 }
 </style>

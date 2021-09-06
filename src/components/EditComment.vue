@@ -28,6 +28,7 @@
 			<v-container fluid>
 				<v-textarea
 					counter
+					outlined
 					:rules="rules"
 					cols="60"
 					rows="4"

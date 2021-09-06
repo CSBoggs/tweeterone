@@ -2,20 +2,26 @@
 	<div>
 		<v-container id="createTweet">
 			<v-form ref="form">
-				<v-text-field
-					v-model="tweetContent"
-					:counter="max"
-					:rules="rules"
-					label="Create a new Tweet"
-					>Tweet</v-text-field
-				>
-				<v-btn
-					@click.prevent="postTweet"
-					color="primary"
-					depressed
-					elevation="2"
-					>Post Tweet</v-btn
-				>
+				<v-row>
+					<v-col cols="60">
+						<v-text-field
+							v-model="tweetContent"
+							:counter="max"
+							:rules="rules"
+							outlined
+							solo
+							label="Create a new Tweet"
+							>Tweet</v-text-field
+						>
+						<v-btn
+							@click.prevent="postTweet"
+							color="primary"
+							depressed
+							elevation="2"
+							>Post Tweet</v-btn
+						>
+					</v-col>
+				</v-row>
 			</v-form>
 		</v-container>
 	</div>
@@ -58,11 +64,14 @@ export default {
 <style scoped>
 #createTweet {
 	width: 90vw;
+	padding-top: 10vh;
 }
 
 @media screen and (min-width: 1000px) {
 	#createTweet {
-		width: 20vw;
+		max-width: 40vw;
+		padding-top: 10vh;
+		padding-bottom: 5vh;
 	}
 }
 </style>
