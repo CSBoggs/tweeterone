@@ -7,7 +7,7 @@
 					<v-app-bar
 						color="cyan"
 						dark
-						shaped="false"
+						shaped
 						fixed
 						collapse-on-scroll
 					>

@@ -15,7 +15,7 @@
 							>Tweet</v-text-field
 						>
 						<v-btn
-							@click.prevent="postTweet"
+							@click.prevent="postTweet()"
 							color="primary"
 							depressed
 							elevation="2"
@@ -51,9 +51,11 @@ export default {
 	},
 	methods: {
 		postTweet() {
-			this.$store.dispatch("createTweet", this.tweetContent);
-			let userId = this.$store.getters.getUserId;
-			this.$store.dispatch("getTweetsById", userId);
+			this.$nextTick(function () {
+				this.$store.dispatch("createTweet", this.tweetContent);
+				let userId = this.$store.getters.getUserId;
+				this.$store.dispatch("getTweetsById", userId);
+			});
 		},
 		getTweets() {
 			this.$store.dispatch("getTweets");

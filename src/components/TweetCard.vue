@@ -7,8 +7,8 @@
 			dark
 			class="mx-auto"
 			color="#26c6da"
-			min-width="400"
-			max-width="500"
+			min-width="340"
+			max-width="460"
 		>
 			<v-card-title>
 				<v-icon medium left> mdi-twitter </v-icon>

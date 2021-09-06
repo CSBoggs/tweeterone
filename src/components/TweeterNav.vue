@@ -1,9 +1,9 @@
 <template>
 	<!-- remainder of Vuetify component for navigation app bar -->
-	<v-list nav dense>
+	<v-list nav>
 		<v-list-item-group
 			v-model="group"
-			active-class="deep-green--text text--accent-9"
+			active-class="deep-blue--text text--accent-9"
 		>
 			<!-- show Tweets page only if logged in and link to root -->
 			<v-list-item v-show="isLoggedIn">
@@ -11,8 +11,17 @@
 					<v-icon>mdi-home</v-icon>
 				</v-list-item-icon>
 				<v-list-item-title>
-					<v-btn color="light-blue lighten-1" torouter-link to="/"
-						>Tweets</v-btn
+					<v-btn outlined torouter-link to="/">Tweets</v-btn>
+				</v-list-item-title>
+			</v-list-item>
+			<!-- show followed tweets page only if logged in and link to followed -->
+			<v-list-item v-show="isLoggedIn">
+				<v-list-item-icon>
+					<v-icon>mdi-account-group</v-icon>
+				</v-list-item-icon>
+				<v-list-item-title>
+					<v-btn outlined torouter-link to="/followed"
+						>Followed</v-btn
 					>
 				</v-list-item-title>
 			</v-list-item>
@@ -23,7 +32,7 @@
 				</v-list-item-icon>
 				<v-list-item-title>
 					<v-btn
-						color="light-blue lighten-1"
+						outlined
 						torouter-link
 						to="/discover"
 						v-if="useRoute != '/discover'"
@@ -38,7 +47,7 @@
 				</v-list-item-icon>
 				<v-list-item-title>
 					<v-btn
-						color="light-blue lighten-1"
+						color="primary"
 						torouter-link
 						:to="'/profile/' + this.$store.getters.getUserId"
 						:v-if="
@@ -67,7 +76,7 @@
 				</v-list-item-icon>
 				<v-list-item-title>
 					<v-btn
-						color="light-blue lighten-1"
+						color="primary"
 						torouter-link
 						to="/login"
 						v-if="useRoute != '/login'"
@@ -84,7 +93,7 @@
 					<v-btn
 						v-show="useRoute != '/register'"
 						@click="registerBtn"
-						color="light-blue lighten-1"
+						color="primary"
 						depressed
 						elevation="2"
 						right
