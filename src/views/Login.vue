@@ -68,7 +68,7 @@ export default {
 				params: { userId: this.$route.params.userId },
 			})
 			.then((response) => {
-				this.tweets = response.data;
+				this.tweets = response.data.splice([0], 4);
 			});
 	},
 };
@@ -84,6 +84,7 @@ div {
 form {
 	width: 35vw;
 	padding-top: 25vh;
+	padding-left: 10vw;
 }
 #tweetLayout {
 	display: grid;

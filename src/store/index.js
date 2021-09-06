@@ -136,6 +136,7 @@ export default new Vuex.Store({
 		},
 		userLogout() {
 			cookies.remove("loginToken");
+			cookies.remove("userId");
 			this.commit("setLoggedOut");
 			this.dispatch("redirect", "/login");
 		},

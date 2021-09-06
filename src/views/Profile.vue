@@ -11,6 +11,7 @@
 							</td>
 							<td>
 								<EditProfile
+									v-if="isEditable"
 									@profileUpdated="refreshProfile()"
 									label="username"
 									displayLabel="Username"
@@ -25,6 +26,7 @@
 							</td>
 							<td>
 								<EditProfile
+									v-if="isEditable"
 									@profileUpdated="refreshProfile()"
 									label="birthdate"
 									displayLabel="Birthdate in Year-Month-Day (2020-01-01)"
@@ -37,6 +39,7 @@
 							<td>{{ userInfo.email }}</td>
 							<td>
 								<EditProfile
+									v-if="isEditable"
 									@profileUpdated="refreshProfile()"
 									label="email"
 									displayLabel="Email"
@@ -49,6 +52,7 @@
 							<td>{{ userInfo.bio }}</td>
 							<td>
 								<EditProfile
+									v-if="isEditable"
 									@profileUpdated="refreshProfile()"
 									label="bio"
 									displayLabel="Biography"
@@ -57,12 +61,14 @@
 							</td>
 						</tr>
 						<tr>
-							<td v-if="userInfo.userId == userId">
+							<td v-if="userInfo.userId == userId && isEditable">
 								Delete my profile:
 							</td>
 							<td>
 								<v-btn
-									v-if="userInfo.userId == userId"
+									v-if="
+										userInfo.userId == userId && isEditable
+									"
 									class="mx-1"
 									color="error"
 									fab
@@ -101,6 +107,15 @@
 					</tbody>
 				</template>
 			</v-simple-table>
+			<button
+				@click.prevent="toggleEdit()"
+				v-if="userInfo.userId == userId"
+			>
+				<v-chip class="ma-2" color="primary" label text-color="white">
+					<v-icon left medium> mdi-account-circle </v-icon>
+					Edit Profile
+				</v-chip>
+			</button>
 		</div>
 		<MainTweetsFlow :tweets="tweets" :key="$store.getters.getLoginToken" />
 	</div>
@@ -138,6 +153,7 @@ export default {
 			editText: "",
 			deletePassword: "",
 			tweets: [],
+			isEditable: false,
 		};
 	},
 	methods: {
@@ -175,6 +191,11 @@ export default {
 				this.$store.dispatch("userLogout");
 			});
 		},
+		toggleEdit() {
+			this.isEditable
+				? (this.isEditable = false)
+				: (this.isEditable = true);
+		},
 	},
 	mounted() {
 		this.refreshProfile();
@@ -211,5 +232,9 @@ export default {
 	display: grid;
 	grid-column: 2/3;
 	grid-row: 2;
+}
+
+.ma-2 {
+	width: 100px;
 }
 </style>

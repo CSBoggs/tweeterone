@@ -97,6 +97,6 @@ export default {
 
 <style scoped>
 .fill {
-	color: #76ff03;
+	color: #00e676;
 }
 </style>

@@ -7,7 +7,7 @@
 			class="mx-auto"
 			color="#26c6da"
 			dark
-			min-width="250"
+			min-width="400"
 			max-width="500"
 		>
 			<v-card-title>
@@ -75,7 +75,11 @@
 					<v-list-item-content>
 						<v-list-item-title>
 							<!-- Username and link to profile -->
-							<router-link :to="'/profile/' + this.tweet.userId">
+							<router-link
+								id="usernameLink"
+								:to="'/profile/' + this.tweet.userId"
+							>
+								<v-icon x-large> mdi-account-circle </v-icon>
 								{{ tweet.username }}
 							</router-link>
 						</v-list-item-title>
@@ -223,5 +227,11 @@ export default {
 <style scoped>
 .fill {
 	color: #f06292;
+}
+#usernameLink {
+	font-weight: 400;
+	font-size: larger;
+	text-decoration: none;
+	color: #ffffff;
 }
 </style>

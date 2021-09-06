@@ -7,7 +7,7 @@
 						<v-app-bar-nav-icon
 							@click="drawer = true"
 						></v-app-bar-nav-icon>
-
+						<v-icon medium right class="mx-2"> mdi-twitter </v-icon>
 						<v-toolbar-title>Tweeter</v-toolbar-title>
 					</v-app-bar>
 
