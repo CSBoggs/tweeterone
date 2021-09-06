@@ -1,29 +1,18 @@
 <template>
 	<div>
-		<!-- Vuetify Slide sheets component to browse other users tweets -->
-		<v-sheet class="mx-auto" elevation="8">
-			<span
-				class="text-h3 font-weight-light pb-15 ml-10 hidden-sm-and-down"
-				>My friends tweets:</span
-			>
-			<v-slide-group
-				v-model="model"
-				id="cardStyle"
-				class="pa-4"
-				show-arrows
-				draggable="true"
-			>
-				<v-slide-item v-for="(tweet, id) in tweets" :key="id">
-					<TweetCard :tweet="tweet" class="mx-2">
-						<v-row
-							class="fill-width"
-							align="center"
-							justify="center"
-						></v-row>
-					</TweetCard>
-				</v-slide-item>
-			</v-slide-group>
-		</v-sheet>
+		<span
+			id="followTitle"
+			class="text-h3 font-weight-light ml-10 hidden-sm-and-down"
+			>My followed user's tweets:</span
+		>
+		<span
+			id="followTitle"
+			class="text-h5 font-weight-light ml-4 hidden-sm-and-up"
+			>My followed user's tweets:</span
+		>
+		<div id="tweetLayout">
+			<TweetCard v-for="(tweet, id) in tweets" :key="id" :tweet="tweet" />
+		</div>
 	</div>
 </template>
 
@@ -84,24 +73,30 @@ export default {
 </script>
 
 <style scoped>
-.mx-auto {
-	padding-top: 20vh;
-	width: 100vw;
-	height: 100vh;
+#tweetLayout {
+	display: grid;
+	gap: 2vw;
+	padding-top: 3.5vh;
+	margin-left: 3.5vw;
+	margin-right: 3.5vw;
 }
-.v-slide-group__content {
-	gap: 1vw;
+#followTitle {
+	display: grid;
+	padding-top: 15vh;
 }
-
 @media screen and (min-width: 1000px) {
-	.mx-auto {
-		padding-top: 20vh;
-		padding-bottom: 20vh;
-		width: 90vw;
-		max-height: 85vh;
+	#tweetLayout {
+		display: grid;
+		margin-left: 13.5vw;
+		margin-right: 13.5vw;
+		padding-top: 15vh;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: auto;
+		gap: 2vh;
 	}
-	.v-slide-group__content {
-		gap: 1vw;
+	#followTitle {
+		display: grid;
+		padding-top: 15vh;
 	}
 }
 </style>

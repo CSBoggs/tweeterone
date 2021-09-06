@@ -68,6 +68,7 @@ export default {
 #createTweet {
 	width: 90vw;
 	padding-top: 10vh;
+	padding-bottom: 7vh;
 }
 
 @media screen and (min-width: 1000px) {

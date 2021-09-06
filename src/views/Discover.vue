@@ -6,6 +6,9 @@
 				class="text-h3 font-weight-light pb-15 ml-10 hidden-sm-and-down"
 				>Discover our users tweets:</span
 			>
+			<span class="text-h5 font-weight-light pb-15 ml-10 hidden-sm-and-up"
+				>Discover our users tweets:</span
+			>
 			<v-slide-group
 				v-model="model"
 				id="cardStyle"
