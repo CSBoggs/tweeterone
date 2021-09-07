@@ -90,7 +90,7 @@ export default new Vuex.Store({
 				})
 				.catch(() => {
 					alert(
-						"username and/or password are invalid, please try again"
+						"there was a registration error, please try again and ask Carson to implement validation on this form"
 					);
 				});
 		},
