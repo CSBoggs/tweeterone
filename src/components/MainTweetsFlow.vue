@@ -1,6 +1,10 @@
 <template>
 	<div id="tweetLayout">
-		<TweetCard v-for="(tweet, id) in tweets" :key="id" :tweet="tweet" />
+		<TweetCard
+			v-for="(tweet, id) in tweets.slice().reverse()"
+			:key="id"
+			:tweet="tweet"
+		/>
 	</div>
 </template>
 

@@ -101,9 +101,9 @@
 							mdi-heart-outline
 						</v-icon>
 						<button
+							v-if="tweet.userId != userId"
 							:disabled="isPreview"
 							@click.prevent="likeToggle()"
-							v-else-if="!loadingLike"
 						>
 							<v-icon
 								:class="{ fill: isLiked }"
@@ -179,7 +179,6 @@ export default {
 				});
 		},
 		likeToggle() {
-			this.loadingLike = true;
 			if (this.isLiked) {
 				this.$store
 					.dispatch("unlikeTweet", this.tweet.tweetId)
@@ -203,9 +202,6 @@ export default {
 				})
 				.then((response) => {
 					this.isLikedBy = response.data.map((user) => user.userId);
-				})
-				.then(() => {
-					this.loadingLike = false;
 				});
 		},
 	},
@@ -219,7 +215,6 @@ export default {
 		editText: "",
 		isLikedBy: [],
 		comments: [],
-		loadingLike: false,
 		loadingComment: false,
 	}),
 };

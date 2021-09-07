@@ -6,6 +6,7 @@
 				<v-text-field
 					outlined
 					v-model="commentContent"
+					clearable
 					:counter="max"
 					:rules="rules"
 					label="Comment on this tweet"
@@ -63,6 +64,8 @@ export default {
 					},
 				})
 				.then(() => {
+					this.commentContent = "";
+					this.$refs.observer.reset();
 					this.$emit("refreshComments");
 				});
 		},
